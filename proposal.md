@@ -14,6 +14,7 @@ Many people want to know if the corporations with which they do business are soc
 
 ### Proposed Functionality
 *The basics…*
+
 _This is the functionality we commit to finishing by December 1st._
 
 - Welcome page
@@ -22,6 +23,7 @@ _This is the functionality we commit to finishing by December 1st._
 - Use API to pull in information from other sources (Wikipedia? Google?)
 
 *If we have time…*
+
 _This is the additional functionality we would like to add if we have time._
 
 - Maps
