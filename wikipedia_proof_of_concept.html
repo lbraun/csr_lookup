@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<style>
+		.infoWrapper{
+			border: #3278b5;
+			border-width: 1px;
+			border-style: solid;
+			display: table;	
+			margin-top: 13px;
+			}
+		</style>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script>
+			$(function() {
+				console.log( "ready!" );
+				$('#btnPull').click(function() {
+					  //$.get( "https://en.wikipedia.org/wiki/"+$('#pageName').val(), function( data ) {
+					  //$( "#result" ).html( data );
+					  //alert( "Load was performed." );
+				 var wikiData;
+					$.ajax({
+						type: "GET",
+						url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&callback=?&page="+$('#pageName').val(),
+						contentType: "application/json; charset=utf-8",
+						async: false,
+						dataType: "json",
+						success: function (data, textStatus, jqXHR) {
+							console.log(data);
+							wikiData = data;
+							$("#result").html('');
+							if(wikiData.parse)
+							{
+								var html = wikiData.parse.text['*'];
+								var parsedHtml = $.parseHTML( html );
+								var infobox = $(parsedHtml[0]).find('table.infobox.vcard');
+								$(infobox).appendTo("#result");
+							}
+							else 
+							{
+								$("#result").html("This wikipedia page does not exist!");
+							}
+						},
+						error: function (errorMessage) {
+						}
+					});
+
+	
+				});
+				
+			});
+		</script>
+		<title>
+			Wikipedia POC
+		</title>
+	</head>
+	<body>
+		Wikipedia Page: <input id= "pageName" type='text'/> <input id="btnPull" type="button" value="Pull" />
+		<div id='result' class= 'infoWrapper' />
+	</body>
+</html>
