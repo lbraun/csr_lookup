@@ -12,12 +12,12 @@ Many people want to know if the corporations with which they do business are soc
 ### The basics…
 *This is the functionality we commit to finishing by December 1st.*
 
-Structure (see mock-ups for details):
+Structure (see [mock-ups](https://github.com/lbraun/csr_lookup/blob/master/mockups.pdf) for details):
 - Home page
   - Search box
 - Search results page
 - Company info page
-  - Wikipedia info box
+  - Wikipedia info box (see [proof of concept](https://github.com/lbraun/csr_lookup/blob/master/wikipedia_proof_of_concept.html))
   - Informational content and ratings pulled from database
 
 Technology and APIs:
