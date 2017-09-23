@@ -1,4 +1,5 @@
 Master in Geospatial Technologies
+
 Fall 2017
 
 # Programming Project Proposal
@@ -16,10 +17,13 @@ Many people want to know if the corporations with which they do business are soc
 #### The basics…
 *This is the functionality we commit to finishing by December 1st.*
 
-Structure:
-- Welcome page with search box
+Structure (see mock-ups for details):
+- Home page
+  - Search box
 - Search results page
 - Company info page
+  - Wikipedia info box
+  - Informational content and ratings pulled from database
 
 Technology and APIs:
 - Angular JS
@@ -31,7 +35,7 @@ Technology and APIs:
 #### If we have time…
 *This is the additional functionality we would like to add if we have time.*
 
-- User functionality (account authentication, reviews, comments)
+- User functionality (account authentication, ability to contribute content, ratings, reviews, comments)
 - Maps to represent companies geographically
 
 ### Rough Timeline
@@ -44,7 +48,7 @@ Technology and APIs:
 
 #### Week 2 (September 25)
 - Get basic welcome page working (without search box)
-- Get familiar with tools (Angular, Bootstrap, Node, git, PostgreSQL)
+- Get (re)familiarized with tools (Angular, Bootstrap, Node, git, PostgreSQL)
 
 #### Week 3 (October 2)
 - Set up back-end
@@ -59,7 +63,7 @@ Technology and APIs:
 - Implement search and search results page
 
 #### Week 7 (October 30)
-- Implement API calls to Wikipedia
+- Implement API calls to Wikipedia and display of Wikipedia information
 
 #### Week 8 (November 6)
 - Build out user functionality
