@@ -26,3 +26,5 @@ CREATE TABLE users (
 
 ALTER TABLE evidence_records ADD FOREIGN KEY (fk_created_by) REFERENCES users (id);
 ALTER TABLE evidence_records ADD FOREIGN KEY (fk_company_id) REFERENCES companies (id);
+
+-- my edits
