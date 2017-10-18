@@ -1,5 +1,7 @@
 CREATE DATABASE csr_lookup;
 
+\connect csr_lookup;
+
 CREATE TABLE companies (
     "id" SERIAL PRIMARY KEY,
     "name" text,
@@ -27,4 +29,7 @@ CREATE TABLE users (
 ALTER TABLE evidence_records ADD FOREIGN KEY (fk_created_by) REFERENCES users (id);
 ALTER TABLE evidence_records ADD FOREIGN KEY (fk_company_id) REFERENCES companies (id);
 
--- my edits
+-- Seed data, if you want it:
+INSERT INTO companies (name, wikipedia_name, industry) VALUES
+  ('ESRI', 'Esri', 'software'),
+  ('Mercadona', 'Mercadona', 'retail');
