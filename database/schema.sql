@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS csr_lookup;
+
 CREATE DATABASE csr_lookup;
 
 \connect csr_lookup;
