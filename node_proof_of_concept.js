@@ -9,10 +9,7 @@ $ npm install express --save
 Once dependencies are installed, use the following command to run:
 $ node node_proof_of_concept.js <db_username> <company_name>
 
-You may want to use the following command to insert a piece of test data:
-INSERT INTO companies (name, wikipedia_name, industry) VALUES
-  ('ESRI', 'Esri', 'software'),
-  ('Mercadona', 'Mercadona', 'retail');
+You may want to use the database/seeds.sql file to insert some test data.
 */
 
 const express = require('express')
