@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS csr_lookup;
+DROP DATABASE csr_lookup;
 
 CREATE DATABASE csr_lookup;
 
