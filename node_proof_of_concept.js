@@ -21,6 +21,8 @@ var pg = require('pg')
 var format = require('pg-format')
 var PGUSER = process.argv[2]
 var PGPASSWORD = process.argv[3]
+if(PGPASSWORD == '%')
+	PGPASSWORD = null;
 var PGDATABASE = 'csr_lookup'
 var companyName = process.argv[4]
 
