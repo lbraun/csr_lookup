@@ -17,9 +17,7 @@ const app = express()
 var pg = require('pg')
 var format = require('pg-format')
 var PGUSER = process.argv[2]
-var PGPASSWORD = process.argv[3]
-if(PGPASSWORD == '%')
-	PGPASSWORD = null;
+var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
 var PGDATABASE = 'csr_lookup'
 var companyName = process.argv[4]
 
@@ -29,7 +27,7 @@ if (PGUSER == undefined || companyName == undefined) {
 } else {
   var config = {
     user: PGUSER,            // name of the user account
-	password:PGPASSWORD,	 // password of the user account
+    password: PGPASSWORD,	 // password of the user account
     database: PGDATABASE,    // name of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
