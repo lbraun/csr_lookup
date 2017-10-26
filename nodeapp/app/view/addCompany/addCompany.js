@@ -4,7 +4,7 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/addCompany', {
-    templateUrl: 'addCompany/addCompany.html',
+    templateUrl: 'view/addCompany/addCompany.html',
     controller: 'AddCompanyCtrl'
   });
 }])

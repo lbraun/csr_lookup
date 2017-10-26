@@ -5,37 +5,52 @@
 describe('my app', function() {
 
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
+  it('should automatically redirect to /mainPage when location hash/fragment is empty', function() {
     browser.get('index.html');
-    expect(browser.getLocationAbsUrl()).toMatch("/view1");
+    expect(browser.getLocationAbsUrl()).toMatch("/mainPage");
   });
 
 
-  describe('view1', function() {
+  describe('mainPage', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/view1');
+      browser.get('index.html#!/mainPage');
     });
 
 
-    it('should render view1 when user navigates to /view1', function() {
+    it('should render mainPage when user navigates to /mainPage', function() {
       expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
+        toMatch(/This website lets you look up social responsibility/);
     });
 
   });
 
 
-  describe('view2', function() {
+  describe('addCompany', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/view2');
+      browser.get('index.html#!/addCompany');
     });
 
 
-    it('should render view2 when user navigates to /view2', function() {
+    it('should render addCompany when user navigates to /addCompany', function() {
       expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 2/);
+        toMatch(/This is the partial for adding a new company./);
+    });
+
+  });
+
+
+  describe('advancedSearch', function() {
+
+    beforeEach(function() {
+      browser.get('index.html#!/advancedSearch');
+    });
+
+
+    it('should render advancedSearch when user navigates to /advancedSearch', function() {
+      expect(element.all(by.css('[ng-view] p')).first().getText()).
+        toMatch(/This is the partial for Advanced Search./);
     });
 
   });
