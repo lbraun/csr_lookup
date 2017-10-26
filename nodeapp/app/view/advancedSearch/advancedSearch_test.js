@@ -6,7 +6,7 @@ describe('csrLookupApp.advancedSearch module', function() {
 
   describe('advancedSearch controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should be defined', inject(function($controller) {
       //spec body
       var advancedSearchCtrl = $controller('AdvancedSearchCtrl');
       expect(advancedSearchCtrl).toBeDefined();

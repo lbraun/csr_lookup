@@ -6,7 +6,7 @@ describe('csrLookupApp.addCompany module', function() {
 
   describe('addCompany controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should be defined', inject(function($controller) {
       //spec body
       var view1Ctrl = $controller('AddCompanyCtrl');
       expect(view1Ctrl).toBeDefined();
