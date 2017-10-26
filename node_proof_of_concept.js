@@ -16,19 +16,19 @@ const express = require('express')
 const app = express()
 var pg = require('pg')
 var format = require('pg-format')
-var PGUSER = process.argv[2]
-var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
-var PGDATABASE = 'csr_lookup'
-var companyName = process.argv[4]
+// var PGUSER = process.argv[2]
+// var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
+// var PGDATABASE = 'csr_lookup'
+var companyName = process.argv[2]
 
-if (PGUSER == undefined || companyName == undefined) {
+if (false) {
   console.log("Error: arguments must not be blank")
   console.log("Usage: node_proof_of_concept.js <db_username> <company_name>")
 } else {
   var config = {
-    user: PGUSER,            // name of the user account
-    password: PGPASSWORD,	 // password of the user account
-    database: PGDATABASE,    // name of the database
+    user: 'lucasbraun',      // name of the user account
+    password: null,	         // password of the user account
+    database: 'csr_lookup',  // name of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
   }
@@ -38,6 +38,29 @@ if (PGUSER == undefined || companyName == undefined) {
 
   pool.connect(function (err, client, done) {
     if (err) console.log(err)
+
+    // Define our main route, HTTP "GET /" which will print "hello"
+    app.get('/', function (req, res) {
+      res.send('Hello world!');
+    });
+
+    // Company route handler
+    app.get('/companies/:companyName', function (req, res) {
+      var companyName = req.params.companyName;
+      var companyQuery = format('SELECT * FROM companies WHERE name = %L', companyName)
+
+      myClient.query(companyQuery, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+
+        if (result_rows.length == 0) {
+          res.send(`No companies in our database have the name "${companyName}".`)
+        } else {
+          var companyIndustry = result.rows[0]['industry']
+          res.send(`${companyName} is a company in the ${companyIndustry} industry.`)
+        }
+      })
+    });
 
     app.listen(3000, function () {
       console.log('listening on 3000')
