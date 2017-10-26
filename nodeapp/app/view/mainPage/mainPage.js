@@ -4,7 +4,7 @@ angular.module('csrLookupApp.mainPage', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/mainPage', {
-    templateUrl: 'mainPage/mainPage.html',
+    templateUrl: 'view/mainPage/mainPage.html',
     controller: 'MainPageCtrl'
   });
 }])

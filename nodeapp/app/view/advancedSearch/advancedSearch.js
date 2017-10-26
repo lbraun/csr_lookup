@@ -4,7 +4,7 @@ angular.module('csrLookupApp.advancedSearch', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/advancedSearch', {
-    templateUrl: 'advancedSearch/advancedSearch.html',
+    templateUrl: 'view/advancedSearch/advancedSearch.html',
     controller: 'AdvancedSearchCtrl'
   });
 }])
