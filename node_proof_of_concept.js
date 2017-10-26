@@ -45,7 +45,7 @@ if (PGUSER == undefined || companyName == undefined) {
 
     myClient = client
     var companyQuery = format('SELECT * FROM companies WHERE name = %L', companyName)
-	
+
 
     myClient.query(companyQuery, function (err, result) {
       if (err) console.log(err)
