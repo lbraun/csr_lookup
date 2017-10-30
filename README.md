@@ -3,7 +3,7 @@
 Welcome! This is a simple app for rating companies based on their corporate social responsibility (CSR).
 
 ## Contributing
-See the app's [waffle.io page](https://waffle.io/lbraun/csr_lookup) for issues that are ready to be picked up:
+See the app's [waffle.io page](https://waffle.io/lbraun/csr_lookup) for issues that are ready to be picked up. Read [this help page](https://help.waffle.io/wafflebot-basics/getting-started-with-the-wafflebot/how-to-use-wafflebot) to learn how to use waffle.
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/lbraun/csr_lookup.svg?columns=all)](http://waffle.io/lbraun/csr_lookup)
 
