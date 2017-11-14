@@ -12,6 +12,9 @@ For better integration with waffle.io, name all branches using the relevant issu
 ## Dependencies
 - TODO
 
+## Testing
+See https://github.com/lbraun/csr_lookup/blob/master/nodeapp/README.md#testing.
+
 ## Running the app
 To run the app locally, navigate to the nodeapp directory and run `npm start`. Once the server is running, go to http://localhost:8000/ in your browser and you should see the app's main page.
 
