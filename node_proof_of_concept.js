@@ -53,7 +53,7 @@ if (false) {
     // Company route handler
     app.get('/companies/:companyName', function (req, res) {
       var companyName = req.params.companyName;
-      var companyQuery = format('SELECT * FROM companies WHERE name = %L', companyName)
+      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%"+companyName+"%'")
 
       myClient.query(companyQuery, function (err, result) {
         if (err) console.log(err)
@@ -62,8 +62,9 @@ if (false) {
         if (result_rows.length == 0) {
           res.send(`No companies in our database have the name "${companyName}".`)
         } else {
-          var companyIndustry = result.rows[0]['industry']
-          res.send(`${companyName} is a company in the ${companyIndustry} industry.`)
+          //var companyIndustry = result.rows[0]['industry']
+          //res.send(`${companyName} is a company in the ${companyIndustry} industry.`)
+          res.send(JSON.stringify(result.rows));
         }
       })
     });
@@ -73,7 +74,7 @@ if (false) {
     })
 
     myClient = client
-    var companyQuery = format('SELECT * FROM companies WHERE name = %L', companyName)
+    var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%"+companyName+"%'")
 
 
     myClient.query(companyQuery, function (err, result) {

@@ -1,0 +1,51 @@
+<p>This is the partial for Advanced Search.</p>
+<!-- <div style = 'font-weight:bold'>{{searchResults}}</div> -->
+<style>
+.star-ratings-sprite {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png) repeat-x;
+    font-size: 0;
+    height: 21px;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 110px;
+    margin: 0 auto;
+}
+.star-ratings-sprite-rating {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png) repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display: block;
+</style>
+<div style='width:100%' ng-repeat = 'company in searchResults track by company.id'>
+    <div align='center'>
+        <div style = 'width:80%;border: 2px solid black;padding:20px'>
+            <div class= 'row' style='margin:0px'>
+                <div class = 'col-6' style = 'text-align:left;' >
+                    <a href='#' style = 'font-weight:bold;text-decoration:underline'>{{company.name}}</a><br/>
+                    {{company.industry}}  
+                </div>
+                <div class = 'col-4' >Perceived<br/>reputation</div>
+                <div class = 'col-2' >Responsibility<br/>score</div>
+            </div>
+            <br/>
+            <div class= 'row' style='margin:0px'>
+                <div class = 'col-6' style = 'text-align:left;'>
+                    <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
+                </div>
+                <div class = 'col-4' >
+                    <div class="star-ratings-sprite"><span style="width:{{company.rating/5*100}}%" class="star-ratings-sprite-rating"></span></div>
+                    {{company.rating | number:1}}
+                </div>
+                <div class = 'col-2' >{{company.resp_score | number:1}}</div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+<br/>
+<!-- <p> -->
+  <!-- Showing of 'interpolate' filter: -->
+  <!-- {{ 'Current version is v%VERSION%.' | interpolate }} -->
+<!-- </p> -->

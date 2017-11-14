@@ -7,7 +7,7 @@ angular.module('csrLookupApp').controller('TestController', ['$scope', '$locatio
         $scope.greetMe = 'World';
 		$scope.mainTitle = "CSR Lookup";
         $scope.on_search_button_click = function(){
-            $location.path('advancedSearch/').search('search_word', $scope.company_search_word);
+            $location.path('searchResults/').search('search_word', $scope.company_search_word);
         }
       }]);
     // angular.element(function() {
