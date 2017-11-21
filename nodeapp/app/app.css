@@ -23,3 +23,42 @@
   content: "|";
   padding-right: 0.3em;
 }
+.star-ratings-sprite {
+    background: url(resources/images/star-rating-sprite.png) repeat-x;
+    font-size: 0;
+    height: 21px;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 110px;
+    margin: 0 auto;
+}
+.star-ratings-sprite-rating {
+    background: url(resources/images/star-rating-sprite.png) repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display: block;
+}
+.search-result-wrapper{
+    width:100%;
+    
+}
+/* .search-result-wrapper{ */
+    /* margin-top: 10%; */
+/* } */
+.search-result{
+    width:80%;
+    border: 2px solid black;
+    padding:20px
+}
+.search-result-link-wrapper {
+    text-align:left;
+}
+.search-result-link{
+    font-weight:bold;
+    text-decoration:underline;
+}
+.search-result-row{
+    margin:0px;
+}
