@@ -1,36 +1,28 @@
-<!-- <p>This is the partial for Advanced Search.</p> -->
-<!-- <div style = 'font-weight:bold'>{{searchResults}}</div> -->
-<div class = 'search-result-wrapper' ng-repeat = 'company in searchResults track by company.id'>
-    <div align='center'>
-        <div class = 'search-result'>
-            <div class= 'row search-result-row' >
-                <div class = 'col-6 search-result-link-wrapper'>
-                    <a href='?#!/showCompany/{{company.id}}' class = 'search-result-link'>{{company.name}}</a><br/>
-                    {{company.industry}}  
-                </div>
-                <div class = 'col-4' >Perceived<br/>reputation</div>
-                <div class = 'col-2' >Responsibility<br/>score</div>
-            </div>
-            <br/>
-            <div class= 'row search-result-row'>
-                <div class = "col-6 search-result-link-wrapper">
-                    <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
-                </div>
-                <div class = 'col-4' >
-                    <div class="star-ratings-sprite">
-                        <span style="width:{{company.rating/5*100}}%" class="star-ratings-sprite-rating">
-                        </span>
-                    </div>
-                    {{company.rating | number:1}}
-                </div>
-                <div class = 'col-2' >{{company.resp_score | number:1}}</div>
-            </div>
+<div class='search-result-wrapper' ng-repeat='company in searchResults track by company.id'>
+  <div align='center'>
+    <div class='search-result'>
+      <div class='row search-result-row' >
+        <div class='col-6 search-result-link-wrapper'>
+          <a href='?#!/showCompany/{{company.id}}' class='search-result-link'>{{company.name}}</a><br/>
+          {{company.industry}}
         </div>
+        <div class='col-4'>Perceived<br/>reputation</div>
+        <div class='col-2'>Responsibility<br/>score</div>
+      </div>
+      <br/>
+      <div class= 'row search-result-row'>
+        <div class="col-6 search-result-link-wrapper">
+          <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
+        </div>
+        <div class='col-4' >
+          <div class="star-ratings-sprite">
+            <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
+            </span>
+          </div>
+          {{company.rating | number:1}}
+        </div>
+        <div class='col-2' >{{company.responsibility_score | number:1}}</div>
+      </div>
     </div>
-    <br/>
+  </div>
 </div>
-<br/>
-<!-- <p> -->
-  <!-- Showing of 'interpolate' filter: -->
-  <!-- {{ 'Current version is v%VERSION%.' | interpolate }} -->
-<!-- </p> -->

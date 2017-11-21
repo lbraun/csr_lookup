@@ -14,12 +14,13 @@ You may want to use the database/seeds.sql file to insert some test data.
 
 const express = require('express')
 const app = express()
-app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-    next();
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+  next();
 });
+
 var pg = require('pg')
 var format = require('pg-format')
 // var PGUSER = process.argv[2]
@@ -32,8 +33,8 @@ if (false) {
   console.log("Usage: node_proof_of_concept.js <db_username> <company_name>")
 } else {
   var config = {
-    user: 'postgres',      // name of the user account
-    password: 123456,	         // password of the user account
+    user: 'postgres',        // name of the user account
+    password: 123456,        // password of the user account
     database: 'csr_lookup',  // name of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
@@ -53,7 +54,7 @@ if (false) {
     // Company route handler
     app.get('/companies/:companyName', function (req, res) {
       var companyName = req.params.companyName;
-      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%"+companyName+"%'")
+      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
 
       myClient.query(companyQuery, function (err, result) {
         if (err) console.log(err)
@@ -62,8 +63,6 @@ if (false) {
         if (result_rows.length == 0) {
           res.send(`No companies in our database have the name "${companyName}".`)
         } else {
-          //var companyIndustry = result.rows[0]['industry']
-          //res.send(`${companyName} is a company in the ${companyIndustry} industry.`)
           res.send(JSON.stringify(result.rows));
         }
       })
@@ -74,8 +73,7 @@ if (false) {
     })
 
     myClient = client
-    var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%"+companyName+"%'")
-
+    var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
 
     myClient.query(companyQuery, function (err, result) {
       if (err) console.log(err)

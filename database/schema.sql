@@ -36,15 +36,16 @@ CREATE TABLE rating_records (
 
 
 CREATE OR REPLACE VIEW public.vw_companies_information
-    WITH (security_barrier=false)
+    WITH (security_barrier = false)
     AS
-       SELECT companies.id,
-      companies.name,
-      companies.wikipedia_name,
-      companies.industry,
-      avg(rating_records.rating) AS rating,
-      avg(evidence_records.score) AS resp_score
-     FROM companies
-       LEFT JOIN rating_records ON companies.id = rating_records.fk_company_id
-       LEFT JOIN evidence_records ON companies.id = evidence_records.fk_company_id
+    SELECT
+        companies.id,
+        companies.name,
+        companies.wikipedia_name,
+        companies.industry,
+        avg(rating_records.rating) AS rating,
+        avg(evidence_records.score) AS responsibility_score
+    FROM companies
+        LEFT JOIN rating_records ON companies.id = rating_records.fk_company_id
+        LEFT JOIN evidence_records ON companies.id = evidence_records.fk_company_id
     GROUP BY companies.id, companies.name, companies.wikipedia_name, companies.industry;

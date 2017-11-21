@@ -10,5 +10,5 @@ angular.module('csrLookupApp.advancedSearch', ['ngRoute'])
 }])
 
 .controller('AdvancedSearchCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
-     
+
 }]);
