@@ -54,4 +54,20 @@ describe('my app', function() {
     });
 
   });
+
+
+  describe('showCompany', function() {
+    var company = "Company";
+
+    beforeEach(function() {
+      browser.get('index.html#!/showCompany/1');
+    });
+
+
+    it('should render showCompany when user navigates to /showCompany', function() {
+      expect(element.all(by.css('[ng-view] p')).first().getText()).
+        toMatch(/This is the partial for showing company 1, ESRI./);
+    });
+
+  });
 });

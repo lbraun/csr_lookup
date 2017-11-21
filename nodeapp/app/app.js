@@ -5,6 +5,7 @@ angular.module('csrLookupApp', [
   'ngRoute',
   'csrLookupApp.mainPage',
   'csrLookupApp.addCompany',
+  'csrLookupApp.showCompany',
   'csrLookupApp.advancedSearch',
   'csrLookupApp.version'
 ]).
