@@ -62,54 +62,67 @@ if (false) {
     // Company route handler
     app.get('/companies/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
-      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+      var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+      console.log("\n" + query);
 
-      myClient.query(companyQuery, function (err, result) {
+      myClient.query(query, function (err, result) {
         if (err) console.log(err)
         var result_rows = result.rows
 
         if (result_rows.length == 0) {
-          res.send(`No companies in our database have the name "${companyName}".`)
+          response = `${query} returned no results!`;
         } else {
-          res.send(JSON.stringify(result.rows));
+          response = JSON.stringify(result.rows);
         }
+
+        res.send(response);
+        console.log("=> " + response);
       })
     });
 
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;
-      var companyQuery = format('SELECT * FROM companies WHERE id = %L', id)
+      var query = format('SELECT * FROM companies WHERE id = %L', id)
+      console.log("\n" + query);
 
-      myClient.query(companyQuery, function (err, result) {
+      myClient.query(query, function (err, result) {
         if (err) console.log(err)
         var result_rows = result.rows
 
         if (result_rows.length == 0) {
-          res.send(`No companies in our database have the id "${id}".`)
+          response = `${query} returned no results!`;
         } else {
-          res.send(JSON.stringify(result.rows[0]));
+          response = JSON.stringify(result.rows[0]);
         }
+
+        res.send(response);
+        console.log("=> " + response);
       })
     });
 
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
-      var evidenceRecordQuery = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
+      var query = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
+      console.log("\n" + query);
 
-      myClient.query(evidenceRecordQuery, function (err, result) {
+      myClient.query(query, function (err, result) {
         if (err) console.log(err)
         var result_rows = result.rows
+        var response;
 
         if (result_rows.length == 0) {
-          res.send(`No evidence_records in our database have fk_company_id "${id}".`)
+          response = `${query} returned no results!`;
         } else {
-          res.send(JSON.stringify(result.rows));
+          response = JSON.stringify(result.rows);
         }
+
+        res.send(response);
+        console.log("=> " + response);
       })
     });
 
     app.listen(3000, function () {
-      console.log('listening on 3000')
+      console.log('Listening on 3000...')
     })
 
     myClient = client

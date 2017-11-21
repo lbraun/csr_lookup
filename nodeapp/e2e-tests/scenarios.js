@@ -55,8 +55,23 @@ describe('my app', function() {
 
   });
 
+  // These searchResults tests assume that the active database contains the seed data defined in seeds.sql
+  describe('searchResults', function() {
 
-  // These tests assume that the active database contains the seed data defined in seeds.sql
+    beforeEach(function() {
+      browser.get('index.html#!/searchResults?search_word=r');
+    });
+
+
+    it('should render searchResults for the letter "r" when user navigates to /searchResults?search_word=r', function() {
+      expect(element.all(by.css('a.search-result-link')).first().getText()).
+        toMatch(/Mercadona/);
+    });
+
+  });
+
+
+  // These showCompany tests assume that the active database contains the seed data defined in seeds.sql
   describe('showCompany', function() {
 
     beforeEach(function() {
