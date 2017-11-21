@@ -7,11 +7,11 @@
   padding: 0 0 0.5em;
 }
 
-.menu: before {
+.menu:before {
   content: "[";
 }
 
-.menu: after {
+.menu:after {
   content: "]";
 }
 
@@ -19,7 +19,7 @@
   display: inline;
 }
 
-.menu > li + li: before {
+.menu > li + li:before {
   content: "|";
   padding-right: 0.3em;
 }
