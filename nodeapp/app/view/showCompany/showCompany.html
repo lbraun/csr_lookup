@@ -12,7 +12,7 @@
       <h4>Evidence of Social Responsibility</h4>
 
       <div ng-repeat='evidence_record in evidence_records track by evidence_record.id'>
-        <div class="card bg-light">
+        <div id="evidence-record-{{evidence_record.id}}" class="card bg-light">
           <div class="card-body">
             <h4 class="card-title">{{evidence_record.title}}</h4>
             <p class="card-text">

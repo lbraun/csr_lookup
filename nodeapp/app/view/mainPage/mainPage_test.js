@@ -7,7 +7,6 @@ describe('csrLookupApp.mainPage module', function() {
   describe('mainPage controller', function() {
 
     it('should be defined', inject(function($controller) {
-      //spec body
       var mainPageCtrl = $controller('MainPageCtrl');
       expect(mainPageCtrl).toBeDefined();
     }));

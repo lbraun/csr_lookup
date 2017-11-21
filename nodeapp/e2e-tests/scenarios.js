@@ -56,17 +56,28 @@ describe('my app', function() {
   });
 
 
+  // These tests assume that the active database contains the seed data defined in seeds.sql
   describe('showCompany', function() {
-    var company = "Company";
 
     beforeEach(function() {
       browser.get('index.html#!/showCompany/1');
     });
 
 
-    it('should render showCompany when user navigates to /showCompany', function() {
+    it('should render info about company 1 when user navigates to /showCompany/1', function() {
+      expect(element.all(by.css('[ng-view] h1')).first().getText()).
+        toMatch(/ESRI/);
+
       expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/This is the partial for showing company 1, ESRI./);
+        toMatch(/Industry: software/);
+    });
+
+    it('should render company 1 evidence records when user navigates to /showCompany/1', function() {
+      expect(element.all(by.css('[ng-view] h4')).first().getText()).
+        toMatch(/Evidence of Social Responsibility/);
+
+      expect(element.all(by.css('#evidence-record-1')).first().getText()).
+        toMatch(/Fake Title/);
     });
 
   });
