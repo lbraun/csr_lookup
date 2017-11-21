@@ -24,18 +24,17 @@ app.use(function (req, res, next) {
 var pg = require('pg')
 var format = require('pg-format')
 
+var PGDATABASE = 'csr_lookup'
+
 // Command line inputs
 // var PGUSER = process.argv[2]
 // var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
 // var companyName = process.argv[4]
 
 // Direct inputs
-var PGUSER = 'lucasbraun'
-var PGPASSWORD = null;
+var PGUSER = 'postgres'
+var PGPASSWORD = 123456
 var companyName = 'ESRI'
-
-var PGDATABASE = 'csr_lookup'
-
 
 if (false) {
   console.log("Error: arguments must not be blank")
@@ -43,7 +42,7 @@ if (false) {
 } else {
   var config = {
     user: PGUSER,            // name of the user account
-    password: PGPASSWORD,	   // password of the user account
+    password: PGPASSWORD,    // password of the user account
     database: PGDATABASE,    // name of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
@@ -61,6 +60,22 @@ if (false) {
     });
 
     // Company route handler
+    app.get('/companies/search/:companyName', function (req, res) {
+      var companyName = req.params.companyName;
+      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+
+      myClient.query(companyQuery, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+
+        if (result_rows.length == 0) {
+          res.send(`No companies in our database have the name "${companyName}".`)
+        } else {
+          res.send(JSON.stringify(result.rows));
+        }
+      })
+    });
+
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;
       var companyQuery = format('SELECT * FROM companies WHERE id = %L', id)
@@ -72,12 +87,11 @@ if (false) {
         if (result_rows.length == 0) {
           res.send(`No companies in our database have the id "${id}".`)
         } else {
-          res.send(JSON.stringify(result.rows[0]))
+          res.send(JSON.stringify(result.rows[0]));
         }
       })
     });
 
-    // Company route handler
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
       var evidenceRecordQuery = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
@@ -89,7 +103,7 @@ if (false) {
         if (result_rows.length == 0) {
           res.send(`No evidence_records in our database have fk_company_id "${id}".`)
         } else {
-          res.send(JSON.stringify(result.rows))
+          res.send(JSON.stringify(result.rows));
         }
       })
     });
@@ -99,8 +113,7 @@ if (false) {
     })
 
     myClient = client
-    var companyQuery = format('SELECT * FROM companies WHERE name = %L', companyName)
-
+    var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
 
     myClient.query(companyQuery, function (err, result) {
       if (err) console.log(err)

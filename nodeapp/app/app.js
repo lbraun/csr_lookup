@@ -7,6 +7,7 @@ angular.module('csrLookupApp', [
   'csrLookupApp.addCompany',
   'csrLookupApp.showCompany',
   'csrLookupApp.advancedSearch',
+  'csrLookupApp.searchResults',
   'csrLookupApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
