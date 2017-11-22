@@ -7,9 +7,8 @@ describe('csrLookupApp.addCompany module', function() {
   describe('addCompany controller', function(){
 
     it('should be defined', inject(function($controller) {
-      //spec body
-      var view1Ctrl = $controller('AddCompanyCtrl');
-      expect(view1Ctrl).toBeDefined();
+      var addCompanyCtrl = $controller('AddCompanyCtrl');
+      expect(addCompanyCtrl).toBeDefined();
     }));
 
   });

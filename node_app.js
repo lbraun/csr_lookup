@@ -7,7 +7,7 @@ $ npm install pg-format
 $ npm install express --save
 
 Once dependencies are installed, use the following command to run:
-$ node node_app.js <db_username> <company_name>
+$ node node_app.js <db_username> <db_password> <company_name>
 
 You may want to use the database/seeds.sql file to insert some test data.
 */
@@ -23,19 +23,27 @@ app.use(function (req, res, next) {
 
 var pg = require('pg')
 var format = require('pg-format')
+
+var PGDATABASE = 'csr_lookup'
+
+// Command line inputs
 // var PGUSER = process.argv[2]
 // var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
-// var PGDATABASE = 'csr_lookup'
-var companyName = process.argv[2]
+// var companyName = process.argv[4]
+
+// Direct inputs
+var PGUSER = 'postgres'
+var PGPASSWORD = 123456
+var companyName = 'ESRI'
 
 if (false) {
   console.log("Error: arguments must not be blank")
   console.log("Usage: node_app.js <db_username> <company_name>")
 } else {
   var config = {
-    user: 'postgres',        // name of the user account
-    password: 123456,        // password of the user account
-    database: 'csr_lookup',  // name of the database
+    user: PGUSER,            // name of the user account
+    password: PGPASSWORD,    // password of the user account
+    database: PGDATABASE,    // name of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
   }
@@ -52,24 +60,69 @@ if (false) {
     });
 
     // Company route handler
-    app.get('/companies/:companyName', function (req, res) {
+    app.get('/companies/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
-      var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+      var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+      console.log("\n" + query);
 
-      myClient.query(companyQuery, function (err, result) {
+      myClient.query(query, function (err, result) {
         if (err) console.log(err)
         var result_rows = result.rows
 
         if (result_rows.length == 0) {
-          res.send(`No companies in our database have the name "${companyName}".`)
+          response = `${query} returned no results!`;
         } else {
-          res.send(JSON.stringify(result.rows));
+          response = JSON.stringify(result.rows);
         }
+
+        res.send(response);
+        console.log("=> " + response);
+      })
+    });
+
+    app.get('/companies/:id', function (req, res) {
+      var id = req.params.id;
+      var query = format('SELECT * FROM companies WHERE id = %L', id)
+      console.log("\n" + query);
+
+      myClient.query(query, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+
+        if (result_rows.length == 0) {
+          response = `${query} returned no results!`;
+        } else {
+          response = JSON.stringify(result.rows[0]);
+        }
+
+        res.send(response);
+        console.log("=> " + response);
+      })
+    });
+
+    app.get('/companies/:id/evidence_records', function (req, res) {
+      var id = req.params.id;
+      var query = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
+      console.log("\n" + query);
+
+      myClient.query(query, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+        var response;
+
+        if (result_rows.length == 0) {
+          response = `${query} returned no results!`;
+        } else {
+          response = JSON.stringify(result.rows);
+        }
+
+        res.send(response);
+        console.log("=> " + response);
       })
     });
 
     app.listen(3000, function () {
-      console.log('listening on 3000')
+      console.log('Listening on 3000...')
     })
 
     myClient = client
