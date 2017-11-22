@@ -59,11 +59,11 @@ describe('my app', function() {
   describe('searchResults', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/searchResults?search_word=r');
+      browser.get('index.html#!/searchResults?search_word=rcad');
     });
 
 
-    it('should render searchResults for the letter "r" when user navigates to /searchResults?search_word=r', function() {
+    it('should render searchResults for the letters "rcad" when user navigates to /searchResults?search_word=rcad', function() {
       expect(element.all(by.css('a.search-result-link')).first().getText()).
         toMatch(/Mercadona/);
     });
