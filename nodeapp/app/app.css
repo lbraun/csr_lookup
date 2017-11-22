@@ -66,3 +66,7 @@
 .search-result-row{
   margin: 0px;
 }
+
+.wikipedia-box{
+    overflow: auto;
+}
