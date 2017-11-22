@@ -16,7 +16,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     if(searchWord) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/Companies/' + searchWord
+        url: 'http://localhost:3000/companies/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
         // This callback will be called asynchronously

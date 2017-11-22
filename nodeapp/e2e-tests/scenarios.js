@@ -54,4 +54,46 @@ describe('my app', function() {
     });
 
   });
+
+  // These searchResults tests assume that the active database contains the seed data defined in seeds.sql
+  describe('searchResults', function() {
+
+    beforeEach(function() {
+      browser.get('index.html#!/searchResults?search_word=r');
+    });
+
+
+    it('should render searchResults for the letter "r" when user navigates to /searchResults?search_word=r', function() {
+      expect(element.all(by.css('a.search-result-link')).first().getText()).
+        toMatch(/Mercadona/);
+    });
+
+  });
+
+
+  // These showCompany tests assume that the active database contains the seed data defined in seeds.sql
+  describe('showCompany', function() {
+
+    beforeEach(function() {
+      browser.get('index.html#!/showCompany/1');
+    });
+
+
+    it('should render info about company 1 when user navigates to /showCompany/1', function() {
+      expect(element.all(by.css('[ng-view] h1')).first().getText()).
+        toMatch(/ESRI/);
+
+      expect(element.all(by.css('[ng-view] p')).first().getText()).
+        toMatch(/Industry: software/);
+    });
+
+    it('should render company 1 evidence records when user navigates to /showCompany/1', function() {
+      expect(element.all(by.css('[ng-view] h4')).first().getText()).
+        toMatch(/Evidence of Social Responsibility/);
+
+      expect(element.all(by.css('#evidence-record-1')).first().getText()).
+        toMatch(/Fake Title/);
+    });
+
+  });
 });

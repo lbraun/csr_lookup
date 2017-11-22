@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{company.name}}</h1>
+      <p>Industry: {{company.industry}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+
+      <h4>Evidence of Social Responsibility</h4>
+
+      <div ng-repeat='evidence_record in evidence_records track by evidence_record.id'>
+        <div id="evidence-record-{{evidence_record.id}}" class="card bg-light">
+          <div class="card-body">
+            <h4 class="card-title">{{evidence_record.title}}</h4>
+            <p class="card-text">
+              {{evidence_record.description}}
+            </p>
+
+            <p class="card-text">
+              Reference:
+              <a href="{{evidence_record.reference_url}}">{{evidence_record.reference_title}}</a>
+            </p>
+
+            <p class="card-text">
+              Score:
+              {{evidence_record.score}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <br>
+      <br>
+
+      <h4>Recent News</h4>
+
+      <div class="card bg-light">
+        <div class="card-body">
+          <h4 class="card-title">News pulled from google news</h4>
+          <p class="card-text">
+            TODO: Fill with news pulled from google news
+          </p>
+
+          <div id="body">
+            <div id="feedControl">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h4 class="card-title">Wikipedia info box</h4>
+          <p class="card-text">
+            TODO: Fill with wikipedia info box
+          </p>
+          <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>
+            {{company.name}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
