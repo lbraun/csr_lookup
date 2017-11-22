@@ -45,6 +45,7 @@
 
 .search-result-wrapper{
   width: 100%;
+  margin-bottom: 2%;
 
 }
 
@@ -69,4 +70,8 @@
 
 .wikipedia-box{
     overflow: auto;
+    width: 100%;
+}
+.company-result-wikipedia-column{
+    margin-bottom: 1%;
 }

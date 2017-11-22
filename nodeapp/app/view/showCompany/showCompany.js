@@ -50,6 +50,9 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
                     var html = wikiData.parse.text['*'];
                     var parsedHtml = $.parseHTML( html );
                     var infobox = $(parsedHtml[0]).find('table.infobox.vcard');
+                    //infobox[0].attributes['style'] = ''
+                    //removing the width style from the result wikipedia infobox;
+                    infobox[0].attributes[1].value= '' 
                     $(infobox).appendTo("#wikipediaBox");
                 }
                 else 
