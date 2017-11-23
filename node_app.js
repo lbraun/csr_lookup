@@ -7,7 +7,7 @@ $ npm install pg-format
 $ npm install express --save
 
 Once dependencies are installed, use the following command to run:
-$ node node_proof_of_concept.js <db_username> <db_password> <company_name>
+$ node node_app.js <db_username> <db_password> <company_name>
 
 You may want to use the database/seeds.sql file to insert some test data.
 */
@@ -39,7 +39,7 @@ var companyName = 'ESRI'
 
 if (false) {
   console.log("Error: arguments must not be blank")
-  console.log("Usage: node_proof_of_concept.js <db_username> <company_name>")
+  console.log("Usage: node_app.js <db_username> <company_name>")
 } else {
   var config = {
     user: PGUSER,            // name of the user account
