@@ -1,8 +1,4 @@
-DROP DATABASE csr_lookup;
-
-CREATE DATABASE csr_lookup;
-
-\connect csr_lookup;
+-- psql csr_lookup < database/schema.up.sql
 
 CREATE TABLE users (
     "id" SERIAL PRIMARY KEY,
