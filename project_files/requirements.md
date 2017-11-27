@@ -2,12 +2,12 @@
 
 Main screen:
 - [ ] main screen with search box
-- [ ] search for companies in own database (database stores at least 5 companies as examples)
+- [x] search for companies in own database (database stores at least 5 companies as examples)
 
 Result page:
-- [ ] company + additional info pre-stored in database (evidence of social responsibility)
-- [ ] perceived reputation (or responsibility score) based on user submissions (average of all submitted scores)
-- [ ] info box (data retrieved from wikipedia)
+- [x] company + additional info pre-stored in database (evidence of social responsibility)
+- [x] perceived reputation (or responsibility score) based on user submissions (average of all submitted scores)
+- [x] info box (data retrieved from wikipedia)
 - [ ] map with location of company (headquarters) - ideally retrieved via an API (Google Places for example), acceptable if predefined in database
 
 Somewhere else (we didn’t specify):
