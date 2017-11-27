@@ -31,7 +31,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
   }, function errorCallback(response) {
     $scope.evidence_records = null
   });
-  
+
    function fillWikipediaBox(companyWikipediaName)
    {
        var wikiData;
@@ -50,12 +50,12 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
                     var html = wikiData.parse.text['*'];
                     var parsedHtml = $.parseHTML( html );
                     var infobox = $(parsedHtml[0]).find('table.infobox.vcard');
-                    //infobox[0].attributes['style'] = ''
                     //removing the width style from the result wikipedia infobox;
-                    infobox[0].attributes[1].value= '' 
+                    //moved this styleing in app.css width: 100%!important;
+                    // infobox[0].attributes[1].value= ''
                     $(infobox).appendTo("#wikipediaBox");
                 }
-                else 
+                else
                 {
                     $("#wikipediaBox").html("This wikipedia page does not exist!");
                 }
@@ -63,27 +63,6 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
             error: function (errorMessage) {
             }
         });
-       // var wikiData;
-        // $http({
-            // method: "GET",
-            // url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&callback=?&page="+companyWikipediaName
-        // }).then(function (reponse) {
-                // console.log(reponse.data);
-                // wikiData = reponse.data;
-                // $("#wikipediaBox").html('');
-                // if(wikiData.parse)
-                // {
-                    // var html = wikiData.parse.text['*'];
-                    // var parsedHtml = $.parseHTML( html );
-                    // var infobox = $(parsedHtml[0]).find('table.infobox.vcard');
-                    // $(infobox).appendTo("#result");
-                // }
-                // else 
-                // {
-                    // $("#wikipediaBox").html("This wikipedia page does not exist!");
-        // }}
-        // ,function (errorMessage) {
-        // });
    }
-    
+
 }]);

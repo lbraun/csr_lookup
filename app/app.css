@@ -46,7 +46,6 @@
 .search-result-wrapper{
   width: 100%;
   margin-bottom: 2%;
-
 }
 
 .search-result{
@@ -74,4 +73,10 @@
 }
 .company-result-wikipedia-column{
     margin-bottom: 1%;
+}
+table.infobox.vcard {
+    width: 100%!important;
+}
+.view-container{
+  margin-top: 2%;
 }
