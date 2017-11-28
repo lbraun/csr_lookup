@@ -13,6 +13,7 @@ You may want to use the database/seeds.sql file to insert some test data.
 */
 
 const express = require('express')
+const bodyParser = require('body-parser');
 const app = express()
 
 app.use(function (req, res, next) {
@@ -20,6 +21,10 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
   next();
 });
+// Handles post requests
+app.use(bodyParser.json());
+// Handles put requests
+// app.use(express.methodOverride());
 
 var pg = require('pg')
 var format = require('pg-format')
@@ -60,6 +65,7 @@ if (false) {
     });
 
     // Company route handler
+// * Return a subset of companies
     app.get('/companies/users/:userId/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
       var userId = req.params.userId;
@@ -101,6 +107,7 @@ if (false) {
     });
   });
 
+    // * Return a single company
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM companies WHERE id = %L', id)
@@ -121,6 +128,33 @@ if (false) {
       })
     });
 
+    // * Add a company
+    app.post('/companies', function (req, res) {
+      console.log("\n=> Result:")
+      console.log(req.body)
+      name = req.body.name
+      wikipedia_name = req.body.wikipedia_name
+      industry = req.body.industry
+
+      var query = format('INSERT INTO companies (name, wikipedia_name, industry) VALUES (\'%s\', \'%s\', \'%s\')', name, wikipedia_name, industry)
+      console.log("\n" + query);
+
+      myClient.query(query, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+
+        if (result_rows.length == 0) {
+          response = `${query}`;
+        } else {
+          response = JSON.stringify(result.rows[0]);
+        }
+
+        res.send(response);
+        console.log("=> " + response);
+      })
+    });
+
+    // * Return all evidence_records for a given company
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
@@ -142,10 +176,14 @@ if (false) {
       })
     });
 
+
+    // Start listening
     app.listen(3000, function () {
       console.log('Listening on 3000...')
     })
 
+
+    // Small test query
     myClient = client
     var companyQuery = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
 
