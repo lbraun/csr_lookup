@@ -60,25 +60,46 @@ if (false) {
     });
 
     // Company route handler
-    app.get('/companies/search/:companyName', function (req, res) {
+    app.get('/companies/users/:userId/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
+      var userId = req.params.userId;
       var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
       console.log("\n" + query);
+      console.log("\nuser:" + userId);
 
       myClient.query(query, function (err, result) {
         if (err) console.log(err)
-        var result_rows = result.rows
+        var result_rows = result.rows;
+        var companiesIds = result_rows.map(comp => comp.id);
+        var ratingQuery = "SELECT * FROM rating_records where fk_company_id  in (" + companiesIds.join(',') + ")";
+        myClient.query(ratingQuery, function (errFromRatingQuery, ratingResult) {
+          var rating_rows = ratingResult.rows;
+          for (var company in result_rows) {
+            var rating_record = rating_rows.find(ra => ra.fk_company_id == company.id);
+            if(rating_record)
+              company.user_rating = rating_record.rating;
+          }
+          if (result_rows.length == 0) {
+            response = `${query} returned no results!`;
+          } else {
+            response = JSON.stringify(result.rows);
+          }
 
-        if (result_rows.length == 0) {
-          response = `${query} returned no results!`;
-        } else {
-          response = JSON.stringify(result.rows);
-        }
+          res.send(response);
+          console.log("=> " + response);
+        })
 
-        res.send(response);
-        console.log("=> " + response);
-      })
+      //   if (result_rows.length == 0) {
+      //     response = `${query} returned no results!`;
+      //   } else {
+      //     response = JSON.stringify(result.rows);
+      //   }
+      //
+      //   res.send(response);
+      //   console.log("=> " + response);
+      // })
     });
+  });
 
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;

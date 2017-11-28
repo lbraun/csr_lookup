@@ -42,6 +42,9 @@
   height: 21px;
   display: block;
 }
+.star-rating-unrated{
+  
+}
 
 .search-result-wrapper{
   width: 100%;

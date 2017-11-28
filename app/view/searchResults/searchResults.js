@@ -12,11 +12,12 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
 .controller('SearchResultsCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
   init();
   function init() {
+    var userId = 1;
     var searchWord = $location.search().search_word;
     if(searchWord) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/companies/search/' + searchWord
+        url: 'http://localhost:3000/companies/users/'+ userId +'/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
         // This callback will be called asynchronously
