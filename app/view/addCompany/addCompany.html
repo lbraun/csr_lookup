@@ -4,21 +4,23 @@
 
     <form>
       <div class="form-group">
-        <label for="companyName">What's the name of the company you want to add?</label>
-        <input class="form-control" id="companyName" placeholder="Name">
+        <label for="company_name">What's the name of the company you want to add?</label>
+        <input class="form-control" id="company_name" ng-model="company_name" placeholder="Name" required>
       </div>
 
       <div class="form-group">
-        <label for="companyWikipediaName">What is the title of the Wikipedia article about this company?</label>
-        <input class="form-control" id="companyWikipediaName" placeholder="Wikipedia name">
+        <label for="company_wikipedia_name">What is the title of the Wikipedia article about this company?</label>
+        <input class="form-control" id="company_wikipedia_name" ng-model="company_wikipedia_name" placeholder="Wikipedia name">
       </div>
 
       <div class="form-group">
-        <label for="companyIndustry">Which industry is this company a part of?</label>
-        <input class="form-control" id="companyIndustry" placeholder="Industry">
+        <label for="company_industry">Which industry is this company a part of?</label>
+        <input class="form-control" id="company_industry" ng-model="company_industry" placeholder="Industry" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Add it!</button>
+      <button type="submit" class="btn btn-outline-primary"
+        ng-click="on_add_company_button_click()"
+        ng-keyup="$event.keyCode == 13 ? on_add_company_button_click() : null">Add it!</button>
     </form>
   </div>
 </div>

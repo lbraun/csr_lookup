@@ -19,10 +19,16 @@ const app = express()
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+
+  // Headers you wish to allow in requests
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+
   next();
 });
+
 // Handles post requests
 app.use(bodyParser.json());
+
 // Handles put requests
 // app.use(express.methodOverride());
 
@@ -118,14 +124,7 @@ if (false) {
 
       myClient.query(query, function (err, result) {
         if (err) console.log(err)
-        var result_rows = result.rows
-
-        if (result_rows.length == 0) {
-          response = `${query}`;
-        } else {
-          response = JSON.stringify(result.rows[0]);
-        }
-
+        var response = result;
         res.send(response);
         console.log("=> " + response);
       })
@@ -141,14 +140,7 @@ if (false) {
 
       myClient.query(query, function (err, result) {
         if (err) console.log(err)
-        var result_rows = result.rows
-
-        if (result_rows.length == 0) {
-          response = `${query}`;
-        } else {
-          response = JSON.stringify(result.rows[0]);
-        }
-
+        var response = result;
         res.send(response);
         console.log("=> " + response);
       })
