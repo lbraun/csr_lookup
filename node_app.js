@@ -109,13 +109,34 @@ if (false) {
 
     // * Add a company
     app.post('/companies', function (req, res) {
-      console.log("\n=> Result:")
-      console.log(req.body)
-      name = req.body.name
-      wikipedia_name = req.body.wikipedia_name
-      industry = req.body.industry
+      var name = req.body.name;
+      var wikipedia_name = req.body.wikipedia_name;
+      var industry = req.body.industry;
 
       var query = format('INSERT INTO companies (name, wikipedia_name, industry) VALUES (\'%s\', \'%s\', \'%s\')', name, wikipedia_name, industry)
+      console.log("\n" + query);
+
+      myClient.query(query, function (err, result) {
+        if (err) console.log(err)
+        var result_rows = result.rows
+
+        if (result_rows.length == 0) {
+          response = `${query}`;
+        } else {
+          response = JSON.stringify(result.rows[0]);
+        }
+
+        res.send(response);
+        console.log("=> " + response);
+      })
+    });
+
+    // * Add an evidence record for a company
+    app.post('/companies/:id/evidence_records', function (req, res) {
+      var id = req.params.id;
+      var title = req.body.title;
+
+      var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\')', title)
       console.log("\n" + query);
 
       myClient.query(query, function (err, result) {
