@@ -19,7 +19,11 @@ const app = express()
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+  // Headers you wish to allow in requests
+  res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
+
+
 });
 // Handles post requests
 app.use(bodyParser.json());
@@ -85,10 +89,10 @@ if (false) {
         var ratingQuery = "SELECT * FROM rating_records where fk_company_id  in (" + companiesIds.join(',') + ")";
         myClient.query(ratingQuery, function (errFromRatingQuery, ratingResult) {
           var rating_rows = ratingResult.rows;
-          for (var company in result_rows) {
-            var rating_record = rating_rows.find(ra => ra.fk_company_id == company.id);
+          for (var company of result_rows) {
+            var rating_record = rating_rows.find(ra => ra.fk_company_id == company.id && ra.fk_created_by == userId);
             if(rating_record)
-              company.user_rating = rating_record.rating;
+              company.user_rated = true;
           }
           if (result_rows.length == 0) {
             response = `${query} returned no results!`;
@@ -148,7 +152,42 @@ if (false) {
         console.log("=> " + response);
       })
     });
+    // * Rate company
+    app.post('/companies/:id/rate', function (req, res) {
+      var companyId = req.params.id;
+      var userId = req.body.userId;
+      var rated = req.body.rated;
+      var rating = req.body.rating;
+      //if user has rated the company before just update his rating
+      if(rated){
+        var query = format('UPDATE rating_records SET rating = \'%s\' where fk_created_by = \'%s\' AND fk_company_id = \'%s\'', rating, userId, companyId )
+        console.log("\n" + query);
 
+        myClient.query(query, function (err, result) {
+          getCompanyInformation(companyId, function(companyInfo){
+            res.send(companyInfo.rating);
+          })
+        });
+      }
+      else {
+        //if user hasn't rated the company before, create a new record with his rating in the rating_records table
+        var query = format('INSERT INTO rating_records (fk_created_by, fk_company_id, rating) VALUES (\'%s\', \'%s\', \'%s\')', userId, companyId, rating)
+        console.log("\n" + query);
+
+        myClient.query(query, function (err, result) {
+          getCompanyInformation(companyId, function(companyInfo){
+            res.send(companyInfo.rating);
+          })
+        });
+      }
+    });
+    function getCompanyInformation(id, callback) {
+      var query = format("SELECT * FROM vw_companies_information WHERE id = " + id);
+      myClient.query(query, function (err, result) {
+        if(result && result.rows && result.rows.length > 0)
+          callback(result.rows[0]);
+      });
+    }
     // * Return all evidence_records for a given company
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;

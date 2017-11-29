@@ -12,12 +12,12 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
 .controller('SearchResultsCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
   init();
   function init() {
-    var userId = 1;
+    $scope.userId = 1;
     var searchWord = $location.search().search_word;
     if(searchWord) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/companies/users/'+ userId +'/search/' + searchWord
+        url: 'http://localhost:3000/companies/users/'+ $scope.userId +'/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
         // This callback will be called asynchronously
@@ -30,11 +30,12 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
   }
   $scope.rating_mousemove = function(event){
     event.currentTarget.children[0].style.width = event.offsetX/event.currentTarget.offsetWidth * 100  + "%";
-
   }
   $scope.rating_mouseleave = function(event){
-    var rating = angular.element(event.currentTarget).scope().company.rating;
-    if(rating)
+    var company = angular.element(event.currentTarget).scope().company;
+    var rated = company.user_rated;
+    var rating = company.rating;
+    if(rated)
       event.currentTarget.children[0].style.width = rating/5 * 100  + "%";
     else event.currentTarget.children[0].style.width = "0%";
   }
@@ -43,10 +44,24 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     //round to .5
     rating = Math.round(rating*2)/2;
     var company =  angular.element(event.currentTarget).scope().company;
-    var rated = company.rating != null;
+    var rated = company.user_rated;
     var companyId = company.id;
-    console.log('rating: '+rating);
-    console.log('rated: '+rated);
-    console.log('companyId: '+companyId);
+    $http({
+      method: 'POST',
+      url: 'http://localhost:3000/companies/' + companyId + '/rate/',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        userId: $scope.userId,
+        rated: rated,
+        rating: rating
+      }
+    }).then(function successCallback(response) {
+      company.rating = response.data;
+      company.user_rated = true;
+    }, function errorCallback(response) {
+      // TODO: figure out how to raise a 404 in this case
+    });
   }
 }]);
