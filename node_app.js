@@ -94,16 +94,6 @@ if (false) {
           res.send(response);
           console.log("=> " + response);
         })
-
-      //   if (result_rows.length == 0) {
-      //     response = `${query} returned no results!`;
-      //   } else {
-      //     response = JSON.stringify(result.rows);
-      //   }
-      //
-      //   res.send(response);
-      //   console.log("=> " + response);
-      // })
     });
   });
 

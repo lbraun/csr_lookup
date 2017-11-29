@@ -28,4 +28,25 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
       });
     }
   }
+  $scope.rating_mousemove = function(event){
+    event.currentTarget.children[0].style.width = event.offsetX/event.currentTarget.offsetWidth * 100  + "%";
+
+  }
+  $scope.rating_mouseleave = function(event){
+    var rating = angular.element(event.currentTarget).scope().company.rating;
+    if(rating)
+      event.currentTarget.children[0].style.width = rating/5 * 100  + "%";
+    else event.currentTarget.children[0].style.width = "0%";
+  }
+  $scope.rating_click = function(event) {
+    var rating = event.offsetX/event.currentTarget.offsetWidth * 5;
+    //round to .5
+    rating = Math.round(rating*2)/2;
+    var company =  angular.element(event.currentTarget).scope().company;
+    var rated = company.rating != null;
+    var companyId = company.id;
+    console.log('rating: '+rating);
+    console.log('rated: '+rated);
+    console.log('companyId: '+companyId);
+  }
 }]);

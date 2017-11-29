@@ -43,7 +43,7 @@
   display: block;
 }
 .star-rating-unrated{
-  
+
 }
 
 .search-result-wrapper{
@@ -82,4 +82,7 @@ table.infobox.vcard {
 }
 .view-container{
   margin-top: 2%;
+}
+.result-header{
+  word-wrap: break-word;
 }
