@@ -45,7 +45,7 @@
 
 .search-result-wrapper{
   width: 100%;
-
+  margin-bottom: 2%;
 }
 
 .search-result{
@@ -65,4 +65,18 @@
 
 .search-result-row{
   margin: 0px;
+}
+
+.wikipedia-box{
+    overflow: auto;
+    width: 100%;
+}
+.company-result-wikipedia-column{
+    margin-bottom: 1%;
+}
+table.infobox.vcard {
+    width: 100%!important;
+}
+.view-container{
+  margin-top: 2%;
 }
