@@ -76,6 +76,11 @@ if (false) {
       myClient.query(query, function (err, result) {
         if (err) console.log(err)
         var result_rows = result.rows;
+        if(!result_rows || result_rows.length == 0)
+        {
+          res.send(null);
+          return;
+        }
         var companiesIds = result_rows.map(comp => comp.id);
         var ratingQuery = "SELECT * FROM rating_records where fk_company_id  in (" + companiesIds.join(',') + ")";
         myClient.query(ratingQuery, function (errFromRatingQuery, ratingResult) {
