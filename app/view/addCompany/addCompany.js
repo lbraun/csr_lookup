@@ -18,9 +18,9 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
         'Content-Type': 'application/json'
       },
       data: {
-        name: $scope.company_name,
-        wikipedia_name: $scope.company_wikipedia_name,
-        industry: $scope.company_industry
+        name: $scope.company.name,
+        wikipedia_name: $scope.company.wikipedia_name,
+        industry: $scope.company.industry
       }
     }).then(function successCallback(response) {
       var persisted_company = response.data;
