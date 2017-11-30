@@ -75,42 +75,14 @@ if (false) {
     app.get('/companies/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
       var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
-      console.log("\n" + query);
-
-      myClient.query(query, function (err, result) {
-        if (err) console.log(err)
-        var result_rows = result.rows
-
-        if (result_rows.length == 0) {
-          response = `${query} returned no results!`;
-        } else {
-          response = JSON.stringify(result.rows);
-        }
-
-        res.send(response);
-        console.log("=> " + response);
-      })
+      queryDatabase(query, res);
     });
 
     // * Return a single company
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM companies WHERE id = %L', id)
-      console.log("\n" + query);
-
-      myClient.query(query, function (err, result) {
-        if (err) console.log(err)
-        var result_rows = result.rows
-
-        if (result_rows.length == 0) {
-          response = `${query} returned no results!`;
-        } else {
-          response = JSON.stringify(result.rows[0]);
-        }
-
-        res.send(response);
-        console.log("=> " + response);
-      })
+      queryDatabase(query, res, true);
     });
 
     // * Add a company
@@ -118,38 +90,26 @@ if (false) {
       var name = req.body.name;
       var wikipedia_name = req.body.wikipedia_name;
       var industry = req.body.industry;
-
-      var query = format('INSERT INTO companies (name, wikipedia_name, industry) VALUES (\'%s\', \'%s\', \'%s\')', name, wikipedia_name, industry)
-      console.log("\n" + query);
-
-      myClient.query(query, function (err, result) {
-        if (err) console.log(err)
-        var response = result;
-        res.send(response);
-        console.log("=> " + response);
-      })
+      var query = format('INSERT INTO companies (name, wikipedia_name, industry) VALUES (\'%s\', \'%s\', \'%s\') RETURNING id', name, wikipedia_name, industry)
+      queryDatabase(query, res, true);
     });
 
     // * Add an evidence record for a company
     app.post('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
       var title = req.body.title;
-
-      var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\')', title)
-      console.log("\n" + query);
-
-      myClient.query(query, function (err, result) {
-        if (err) console.log(err)
-        var response = result;
-        res.send(response);
-        console.log("=> " + response);
-      })
+      var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\') RETURNING id', title)
+      queryDatabase(query, res, true);
     });
 
     // * Return all evidence_records for a given company
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
+      queryDatabase(query, res);
+    });
+
+    function queryDatabase(query, res, firstRowOnly = false) {
       console.log("\n" + query);
 
       myClient.query(query, function (err, result) {
@@ -160,13 +120,13 @@ if (false) {
         if (result_rows.length == 0) {
           response = `${query} returned no results!`;
         } else {
-          response = JSON.stringify(result.rows);
+          response = JSON.stringify(firstRowOnly ? result.rows[0] : result.rows);
         }
 
         res.send(response);
         console.log("=> " + response);
       })
-    });
+    };
 
 
     // Start listening

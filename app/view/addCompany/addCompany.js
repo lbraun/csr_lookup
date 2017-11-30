@@ -23,11 +23,11 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
         industry: $scope.company_industry
       }
     }).then(function successCallback(response) {
+      var persisted_company = response.data;
+      $location.path('showCompany/' + persisted_company.id);
       // TODO: display a success message
     }, function errorCallback(response) {
       // TODO: figure out how to raise a 404 in this case
     });
-
-    $location.path('searchResults/').search('search_word', $scope.company_name);
   }
 }]);
