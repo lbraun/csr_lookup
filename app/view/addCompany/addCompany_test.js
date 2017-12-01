@@ -4,10 +4,15 @@ describe('csrLookupApp.addCompany module', function() {
 
   beforeEach(module('csrLookupApp.addCompany'));
 
-  describe('addCompany controller', function(){
+  describe('addCompany controller', function() {
+    var scope, addCompanyCtrl;
+
+    beforeEach(inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
+      addCompanyCtrl = $controller('AddCompanyCtrl', {$scope: scope});
+    }));
 
     it('should be defined', inject(function($controller) {
-      var addCompanyCtrl = $controller('AddCompanyCtrl');
       expect(addCompanyCtrl).toBeDefined();
     }));
 

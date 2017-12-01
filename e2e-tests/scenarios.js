@@ -34,8 +34,8 @@ describe('my app', function() {
 
 
     it('should render addCompany when user navigates to /addCompany', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/This is the partial for adding a new company./);
+      expect(element.all(by.css('h1')).first().getText()).
+        toMatch(/Add a new company/);
     });
 
   });
