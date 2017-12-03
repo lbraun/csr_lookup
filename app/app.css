@@ -48,7 +48,7 @@
 }
 
 .search-result{
-  width: 80%;
+  width: 90%;
   border: 2px solid black;
   padding: 20px
 }
@@ -81,4 +81,10 @@ table.infobox.vcard {
 }
 .result-header{
   word-wrap: break-word;
+}
+.results-container{
+  float:left;width:50%
+}
+.results-map{
+  float:right;width:50%;height:500px
 }

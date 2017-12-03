@@ -1,35 +1,38 @@
-<div class='search-result-wrapper' ng-repeat='company in searchResults track by company.id'>
-  <div align='center'>
-    <div class='search-result'>
-      <div class='row search-result-row' >
-        <div class='col-6 search-result-link-wrapper'>
-          <a href='?#!/showCompany/{{company.id}}' class='search-result-link'>{{company.name}}</a><br/>
-          {{company.industry}}
-        </div>
-        <div class='col-4 result-header'>Perceived<br/>reputation</div>
-        <div class='col-2 result-header'>Responsibility<br/>score</div>
-      </div>
-      <br/>
-      <div class= 'row search-result-row'>
-        <div class="col-6 search-result-link-wrapper">
-          <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
-        </div>
-        <div class='col-4' ng-show=company.user_rated >
-          <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
-            <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
-            </span>
+<div class="results-container" >
+  <div class='search-result-wrapper' ng-repeat='company in searchResults track by company.id'>
+    <div align='center'>
+      <div class='search-result'>
+        <div class='row search-result-row' >
+          <div class='col-6 search-result-link-wrapper'>
+            <a href='?#!/showCompany/{{company.id}}' class='search-result-link'>{{company.name}}</a><br/>
+            {{company.industry}}
           </div>
-          {{company.rating | number:1}}
+          <div class='col-4 result-header'><img title="Perceived reputation" style="width:40px;height:40px;" src="../resources/images/reputation.png"></img></div>
+          <div class='col-2 result-header'><img title="Responsibility score" style="width:40px;height:40px;" src="../resources/images/Corporate_Social_Responsibility.png"></img></div>
         </div>
-        <div class='col-4' ng-hide=company.user_rated >
-          <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
-            <span style="width:0%" class="star-ratings-sprite-rating">
-            </span>
+        <br/>
+        <div class= 'row search-result-row'>
+          <div class="col-6 search-result-link-wrapper">
+            <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
           </div>
-          <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
+          <div class='col-4' ng-show=company.user_rated >
+            <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+              <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
+              </span>
+            </div>
+            {{company.rating | number:1}}
+          </div>
+          <div class='col-4' ng-hide=company.user_rated >
+            <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+              <span style="width:0%" class="star-ratings-sprite-rating">
+              </span>
+            </div>
+            <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
+          </div>
+          <div class='col-2' >{{company.resp_score | number:1}}</div>
         </div>
-        <div class='col-2' >{{company.responsibility_score | number:1}}</div>
       </div>
     </div>
   </div>
 </div>
+<div id="map" class="results-map"></div>

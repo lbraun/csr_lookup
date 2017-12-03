@@ -8,6 +8,10 @@ describe('csrLookupApp.searchResults module', function() {
     var scope, searchResultsCtrl;
 
     beforeEach(inject(function($rootScope, $controller) {
+      document.body.insertAdjacentHTML(
+        'afterbegin',
+        '<div id="map"></div>'
+      );
       scope = $rootScope.$new();
       searchResultsCtrl = $controller('SearchResultsCtrl', {$scope: scope});
     }));

@@ -10,6 +10,70 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
 }])
 
 .controller('SearchResultsCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
+  $scope.initMap = function(){
+    $scope.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4
+    });
+  }
+  $scope.getCompanyCoordinates = function(address, callback)
+  {
+    $http({
+      method: 'GET',
+      url: "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyAK-O0lnQeifjCHUBjekgYwWhGMERCZays"
+    }).then(function successCallback(response) {
+      var lat = response.data.results[0].geometry.location.lat;
+      var lng = response.data.results[0].geometry.location.lng;
+      callback(new google.maps.LatLng(lat, lng));
+    }, function errorCallback(response) {
+      callback(null);
+    });
+  }
+  $scope.getCompanyAddress = function(wikipedia_name, callback)
+  {
+    $.ajax({
+        type: "GET",
+        url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&callback=?&page="+wikipedia_name,
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            if(data.parse)
+            {
+                var html = data.parse.text['*'];
+                var parsedHtml = $.parseHTML( html );
+                var infobox = $(parsedHtml[0]).find('table.infobox.vcard');
+                var address = infobox.find('th:contains("Headquarters")').next().text();
+                callback(address);
+            }
+            else
+            {
+                console.log('No wikipedia info!')
+                callback(null);
+            }
+        },
+        error: function (errorMessage) {
+          callback(null);
+        }
+    });
+  }
+  $scope.getCompanyCoordinatesByWikiname = function(company){
+    return new Promise(function(resolve, reject){
+      $scope.getCompanyAddress(company.wikipedia_name, function(address){
+        if(address)
+          $scope.getCompanyCoordinates(address, function(coordinates){
+            if(coordinates)
+            {
+              company.coordinates = coordinates;
+              resolve(company);
+            }
+            else resolve();
+          });
+        else resolve();
+      });
+    })
+  }
+  $scope.initMap();
   init();
   function init() {
     $scope.userId = 1;
@@ -20,6 +84,37 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
         url: 'http://localhost:3000/companies/users/'+ $scope.userId +'/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
+        if($scope.searchResults && $scope.searchResults.length > 0)
+        {
+          var promises = [];
+          for (var i = 0; i < $scope.searchResults.length; i++) {
+            var company = $scope.searchResults[i];
+            promises.push($scope.getCompanyCoordinatesByWikiname(company));
+          }
+          Promise.all(promises).then(function(res){
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < res.length; i++) {
+              var company = res[i];
+              if(company && company.coordinates){
+                var lat = company.coordinates.lat();
+                var lng = company.coordinates.lng();
+                var position = {lat: lat, lng: lng};
+
+                var marker = new google.maps.Marker({
+                  position: position,
+                  title: company.name,
+                  map: $scope.map
+                });
+                bounds.extend(marker.position);
+              }
+              $scope.map.fitBounds(bounds);
+              }
+
+            }, function(err){
+
+          })
+        }
+
         // This callback will be called asynchronously
         // when the response is available
       }, function errorCallback(response) {
