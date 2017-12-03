@@ -27,17 +27,41 @@ describe('my app', function() {
 
 
   describe('addCompany', function() {
+    describe('when user navigates to /addCompany', function() {
+      beforeEach(function() {
+        browser.get('index.html#!/addCompany');
+      });
 
-    beforeEach(function() {
-      browser.get('index.html#!/addCompany');
+      it('should render a proper title', function() {
+        var title = element.all(by.css('h1')).first().getText();
+        expect(title).toBe('Add a new company');
+      });
+
+      it('should allow the user to create a new company', function() {
+        var company_name = element(by.id('company_name'));
+        var company_wikipedia_name = element(by.id('company_wikipedia_name'));
+        var company_industry = element(by.id('company_industry'));
+        var submit_button = element(by.id('submit_button'));
+
+        company_name.sendKeys('Test Company');
+        company_wikipedia_name.sendKeys('Corporate_social_responsibility');
+        company_industry.sendKeys('Test Industry');
+
+        expect(company_name.getAttribute('value')).toBe('Test Company');
+        expect(company_wikipedia_name.getAttribute('value')).toBe('Corporate_social_responsibility');
+        expect(company_industry.getAttribute('value')).toBe('Test Industry');
+
+        submit_button.click();
+
+        var title = element.all(by.css('h1')).first().getText();
+        var industry_text = element(by.id('industry_text')).getText();
+        var wikipedia_link = element(by.id('wikipedia_link')).getAttribute('href');
+
+        expect(title).toBe('Test Company');
+        expect(industry_text).toBe('Industry: Test Industry');
+        expect(wikipedia_link).toBe('https://en.wikipedia.org/wiki/Corporate_social_responsibility');
+      });
     });
-
-
-    it('should render addCompany when user navigates to /addCompany', function() {
-      expect(element.all(by.css('h1')).first().getText()).
-        toMatch(/Add a new company/);
-    });
-
   });
 
 

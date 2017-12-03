@@ -39,9 +39,8 @@ var PGDATABASE = process.env.CSR_LOOKUP_POSTGRES_DATABASE || 'csr_lookup'
 var PGUSER = process.env.CSR_LOOKUP_POSTGRES_USER || 'postgres'
 var PGPASSWORD = process.env.CSR_LOOKUP_POSTGRES_PASSWORD || 123456
 
-if (false) {
-  console.log("Error: arguments must not be blank")
-  console.log("Usage: node_app.js <db_username> <company_name>")
+if (PGDATABASE == null) {
+  console.log("Error: database must be configured")
 } else {
   var config = {
     user: PGUSER,            // name of the user account

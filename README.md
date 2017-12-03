@@ -13,6 +13,9 @@ For better integration with waffle.io, name all branches using the relevant issu
 ## Dependencies
 - TODO
 
+## Conventions
+- [Protractor tests](https://github.com/CarmenPopoviciu/protractor-styleguide)
+
 ## Running the app
 To run the app locally, navigate to the root directory and run `node node_app.js` to start the node server. Then run `npm start` to start the angular server. Once both servers are running, go to http://localhost:8000/ in your browser and you should see the app's main page.
 

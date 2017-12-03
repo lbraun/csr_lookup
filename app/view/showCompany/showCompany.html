@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <h1>{{company.name}}</h1>
-    <p>Industry: {{company.industry}}</p>
+    <p id="industry_text">Industry: {{company.industry}}</p>
   </div>
 </div>
 
@@ -57,7 +57,7 @@
         <p class="card-text wikipedia-box" id="wikipediaBox">
           Loading Wikipedia box ...
         </p>
-        <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>
+        <a id="wikipedia_link" href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>
           {{company.name}}
         </a>
       </div>
