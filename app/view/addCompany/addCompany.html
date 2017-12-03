@@ -1,1 +1,26 @@
-<p>This is the partial for adding a new company.</p>
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <h1>Add a new company</h1>
+
+    <form name="company_form">
+      <div class="form-group">
+        <label for="company_name">What's the name of the company you want to add?</label>
+        <input class="form-control" id="company_name" ng-model="company.name" placeholder="Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="company_wikipedia_name">What is the title of the Wikipedia article about this company?</label>
+        <input class="form-control" id="company_wikipedia_name" ng-model="company.wikipedia_name" placeholder="Wikipedia name">
+      </div>
+
+      <div class="form-group">
+        <label for="company_industry">Which industry is this company a part of?</label>
+        <input class="form-control" id="company_industry" ng-model="company.industry" placeholder="Industry" required>
+      </div>
+
+      <button type="submit" class="btn btn-outline-primary"
+        ng-click="on_add_company_button_click()"
+        ng-keyup="$event.keyCode == 13 ? on_add_company_button_click() : null">Add it!</button>
+    </form>
+  </div>
+</div>

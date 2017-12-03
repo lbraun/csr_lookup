@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" ng-controller="TestController">
+    <header class="navbar navbar-expand-md navbar-dark bg-dark" ng-controller="TestController">
       <a class="navbar-brand" href="#">{{mainTitle}}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,10 +47,16 @@
             ng-keyup="$event.keyCode == 13 ? on_search_button_click() : null">Search</button>
         </form>
       </div>
-    </nav>
+    </header>
 
-    <div class="container">
-      <div class="view-container" ng-view></div>
+    <div class="container-fluid">
+      <div class="row">
+        <main class="col-12 py-3 p-md-5">
+          <div ng-view>
+            <!-- All views are rendered here -->
+          </div>
+        </main>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->

@@ -6,20 +6,27 @@
           <a href='?#!/showCompany/{{company.id}}' class='search-result-link'>{{company.name}}</a><br/>
           {{company.industry}}
         </div>
-        <div class='col-4'>Perceived<br/>reputation</div>
-        <div class='col-2'>Responsibility<br/>score</div>
+        <div class='col-4 result-header'>Perceived<br/>reputation</div>
+        <div class='col-2 result-header'>Responsibility<br/>score</div>
       </div>
       <br/>
       <div class= 'row search-result-row'>
         <div class="col-6 search-result-link-wrapper">
           <a href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>Wikipedia</a>
         </div>
-        <div class='col-4' >
-          <div class="star-ratings-sprite">
+        <div class='col-4' ng-show=company.user_rated >
+          <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
             <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
             </span>
           </div>
           {{company.rating | number:1}}
+        </div>
+        <div class='col-4' ng-hide=company.user_rated >
+          <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+            <span style="width:0%" class="star-ratings-sprite-rating">
+            </span>
+          </div>
+          <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
         </div>
         <div class='col-2' >{{company.responsibility_score | number:1}}</div>
       </div>
