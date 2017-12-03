@@ -102,7 +102,15 @@ if (PGDATABASE == null) {
     // * Return a single company
     app.get('/companies/:id', function (req, res) {
       var id = req.params.id;
-      var query = format('SELECT * FROM companies WHERE id = %L', id)
+      var query = format('SELECT * FROM vw_companies_information WHERE id = %L', id)
+      queryDatabase(query, res, true);
+    });
+
+    // * Return a single rating record
+    app.get('/rating_records/:userId/:companyId', function (req, res) {
+      var userId = req.params.userId;
+      var companyId = req.params.companyId;
+      var query = `SELECT * FROM rating_records WHERE fk_created_by = ${userId} AND fk_company_id = ${companyId}`
       queryDatabase(query, res, true);
     });
 
@@ -192,13 +200,18 @@ if (PGDATABASE == null) {
         var response;
 
         if (result_rows.length == 0) {
-          response = `${query} returned no results!`;
+          response = null;
         } else {
           response = JSON.stringify(firstRowOnly ? result.rows[0] : result.rows);
         }
 
         res.send(response);
-        console.log("=> " + response);
+
+        if (response == null) {
+          console.log(`${query} returned no results!`);
+        } else {
+          console.log("=> " + response);
+        }
       })
     };
 

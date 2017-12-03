@@ -1,7 +1,27 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-6">
     <h1>{{company.name}}</h1>
     <p id="industry_text">Industry: {{company.industry}}</p>
+  </div>
+
+  <div class='ratings-container col-4' ng-show=company.user_rated >
+    <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+      <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
+      </span>
+    </div>
+    {{company.rating | number:1}}
+  </div>
+  <div class='ratings-container col-4' ng-hide=company.user_rated >
+    <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+      <span style="width:0%" class="star-ratings-sprite-rating">
+      </span>
+    </div>
+    <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
+  </div>
+
+  <div class='ratings-container col-2'>
+    <strong>Responsibilty score:</strong>
+    {{company.responsibility_score | number:1}}
   </div>
 </div>
 
