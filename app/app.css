@@ -42,7 +42,6 @@
   height: 21px;
   display: block;
 }
-
 .search-result-wrapper{
   width: 100%;
   margin-bottom: 2%;
@@ -76,4 +75,10 @@
 }
 table.infobox.vcard {
     width: 100%!important;
+}
+.view-container{
+  margin-top: 2%;
+}
+.result-header{
+  word-wrap: break-word;
 }
