@@ -39,17 +39,18 @@ describe('my app', function() {
 
       it('should allow the user to create a new company', function() {
         var company_name = element(by.id('company_name'));
-        var company_wikipedia_name = element(by.id('company_wikipedia_name'));
         var company_industry = element(by.id('company_industry'));
+        var company_wikipedia_name = element(by.id('company_wikipedia_name'));
         var submit_button = element(by.id('submit_button'));
 
         company_name.sendKeys('Test Company');
-        company_wikipedia_name.sendKeys('Corporate_social_responsibility');
         company_industry.sendKeys('Test Industry');
+        company_wikipedia_name.sendKeys('Corporate_social_responsibility');
 
         expect(company_name.getAttribute('value')).toBe('Test Company');
-        expect(company_wikipedia_name.getAttribute('value')).toBe('Corporate_social_responsibility');
         expect(company_industry.getAttribute('value')).toBe('Test Industry');
+        expect(company_wikipedia_name.getAttribute('value'))
+          .toBe('Corporate_social_responsibility');
 
         submit_button.click();
 
@@ -59,7 +60,46 @@ describe('my app', function() {
 
         expect(title).toBe('Test Company');
         expect(industry_text).toBe('Industry: Test Industry');
-        expect(wikipedia_link).toBe('https://en.wikipedia.org/wiki/Corporate_social_responsibility');
+        expect(wikipedia_link)
+          .toBe('https://en.wikipedia.org/wiki/Corporate_social_responsibility');
+      });
+    });
+  });
+
+
+  describe('addEvidenceRecord', function() {
+    describe('when user navigates to a company show page', function() {
+      beforeEach(function() {
+        browser.get('index.html#!/addCompany');
+
+        var company_name = element(by.id('company_name'));
+        var company_industry = element(by.id('company_industry'));
+        var company_wikipedia_name = element(by.id('company_wikipedia_name'));
+        var submit_button = element(by.id('submit_button'));
+
+        company_name.sendKeys('Test Company');
+        company_industry.sendKeys('Test Industry');
+        company_wikipedia_name.sendKeys('Corporate_social_responsibility');
+
+        submit_button.click();
+      });
+
+      it('should render an link to add evidence', function() {
+        var title = element.all(by.css('h1')).first().getText();
+        expect(title).toBe('Test Company');
+
+        var add_evidence_link = element(by.id('add-evidence-link'));
+        expect(add_evidence_link.getText()).toBe('Add New Evidence');
+        expect(add_evidence_link.getAttribute('href'))
+          .toMatch(/http:\/\/localhost:8000\/index.html#!\/showCompany\/\d*\/addEvidenceRecord/);
+      });
+
+      it('should allow the user to create a new evidence record', function() {
+        var add_evidence_link = element(by.id('add-evidence-link'));
+        add_evidence_link.click();
+
+        var title = element.all(by.css('h1')).first().getText();
+        expect(title).toBe('Add new evidence about Test Company');
       });
     });
   });
