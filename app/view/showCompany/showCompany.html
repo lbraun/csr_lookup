@@ -10,8 +10,8 @@
 
     <h4>Evidence of Social Responsibility</h4>
 
-    <div ng-repeat='evidence_record in evidence_records track by evidence_record.id'>
-      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light my-4">
+    <div ng-repeat="evidence_record in evidence_records track by evidence_record.id">
+      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light mb-4">
         <div class="card-body">
           <h4 class="card-title">{{evidence_record.title}}</h4>
           <p class="card-text evidence-record-description">
@@ -42,14 +42,9 @@
 
     <div class="card bg-light">
       <div class="card-body">
-        <h4 class="card-title">News pulled from google news</h4>
         <p class="card-text">
-          TODO: Fill with news pulled from google news
+          <a href="https://news.google.com/news/search/section/q/{{company.name}}" target="_blank">{{company.name}} on Google News</a>
         </p>
-
-        <div id="body">
-          <div id="feedControl">Loading...</div>
-        </div>
       </div>
     </div>
   </div>
@@ -60,7 +55,7 @@
         <p class="card-text wikipedia-box" id="wikipediaBox">
           Loading Wikipedia box ...
         </p>
-        <a id="wikipedia_link" href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>
+        <a id="wikipedia_link" href="https://en.wikipedia.org/wiki/{{company.wikipedia_name}}" target="_blank">
           {{company.name}}
         </a>
       </div>
