@@ -1,4 +1,4 @@
--- psql csr_lookup < database/seeds.sql
+-- psql csr_lookup < project_files/database/seeds.sql
 
 INSERT INTO
   users
