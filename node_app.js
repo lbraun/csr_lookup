@@ -117,9 +117,24 @@ if (PGDATABASE == null) {
 
     // * Add an evidence record for a company
     app.post('/companies/:id/evidence_records', function (req, res) {
-      var id = req.params.id;
-      var title = req.body.title;
-      var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\') RETURNING id', title)
+      var companyId = req.params.id;
+      var query = `
+        INSERT INTO evidence_records (
+          fk_company_id,
+          title,
+          reference_url,
+          reference_title,
+          description,
+          score
+        ) VALUES (
+          ${companyId},
+          '${req.body.title}',
+          '${req.body.reference_url}',
+          '${req.body.reference_title}',
+          '${req.body.description}',
+          ${req.body.score}
+        ) RETURNING id
+      `;
       queryDatabase(query, res, true);
     });
 

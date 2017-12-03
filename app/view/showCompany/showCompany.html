@@ -11,20 +11,20 @@
     <h4>Evidence of Social Responsibility</h4>
 
     <div ng-repeat='evidence_record in evidence_records track by evidence_record.id'>
-      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light">
+      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light my-4">
         <div class="card-body">
           <h4 class="card-title">{{evidence_record.title}}</h4>
-          <p class="card-text">
+          <p class="card-text evidence-record-description">
             {{evidence_record.description}}
           </p>
 
-          <p class="card-text">
-            Reference:
+          <p class="card-text evidence-record-reference">
+            <strong>Reference:</strong>
             <a href="{{evidence_record.reference_url}}">{{evidence_record.reference_title}}</a>
           </p>
 
-          <p class="card-text">
-            Score:
+          <p class="card-text evidence-record-score">
+            <strong>Score:</strong>
             {{evidence_record.score}}
           </p>
         </div>
@@ -32,7 +32,7 @@
     </div>
 
     <p>
-      <a id="add-evidence-link" href="#!/showCompany/{{company.id}}/addEvidenceRecord">Add New Evidence</a>
+      <a id="add-evidence-link" href="#!/showCompany/{{company.id}}/addEvidenceRecord">Add new evidence</a>
     </p>
 
     <br>

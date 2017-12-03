@@ -1,27 +1,45 @@
 <div class="row">
   <div class="col-12 col-lg-8">
     <h1>Add new evidence about {{company.name}}</h1>
-<!--
+
     <form name="evidence_record_form">
       <div class="form-group">
-        <label for="evidence_record_name">What's the name of the evidence_record you want to add?</label>
-        <input class="form-control" id="evidence_record_name" ng-model="evidence_record.name" placeholder="Name" required>
+        <label for="evidence_record_title">How would you title this evidence?</label>
+        <input class="form-control" id="evidence_record_title"
+          ng-model="evidence_record.title" placeholder="Title" required>
       </div>
 
       <div class="form-group">
-        <label for="evidence_record_wikipedia_name">What is the title of the Wikipedia article about this evidence_record?</label>
-        <input class="form-control" id="evidence_record_wikipedia_name" ng-model="evidence_record.wikipedia_name" placeholder="Wikipedia name">
+        <label for="evidence_record_description">How about a longer description?</label>
+        <input class="form-control" id="evidence_record_description"
+          ng-model="evidence_record.description" placeholder="Description" required>
       </div>
 
       <div class="form-group">
-        <label for="evidence_record_industry">Which industry is this evidence_record a part of?</label>
-        <input class="form-control" id="evidence_record_industry" ng-model="evidence_record.industry" placeholder="Industry" required>
+        <label for="evidence_record_reference_title">What is the source of this evidence?</label>
+        <input class="form-control" id="evidence_record_reference_title"
+          ng-model="evidence_record.reference_title" placeholder="Reference title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="evidence_record_reference_url">Could you give a URL for your source?</label>
+        <input class="form-control" id="evidence_record_reference_url"
+          ng-model="evidence_record.reference_url" placeholder="Reference URL" required>
+      </div>
+
+      <div class="form-group">
+        <label for="evidence_record_score">How would you score this evidence?</label>
+        <input class="form-control" id="evidence_record_score"
+          ng-model="evidence_record.score" placeholder="Score" required>
+        <small class="form-text text-muted">
+          Please provide a number between 1 and 10, where 1 is for evidence that shows the company has done something highly irresponsible and 10 is for instances where the company has done something really good.
+        </small>
       </div>
 
       <button type="submit" class="btn btn-outline-primary" id="submit_button"
         ng-click="on_add_evidence_record_button_click()"
         ng-keyup="$event.keyCode == 13 ? on_add_evidence_record_button_click() : null">Add it!</button>
     </form>
-     -->
+
   </div>
 </div>

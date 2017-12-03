@@ -89,7 +89,7 @@ describe('my app', function() {
         expect(title).toBe('Test Company');
 
         var add_evidence_link = element(by.id('add-evidence-link'));
-        expect(add_evidence_link.getText()).toBe('Add New Evidence');
+        expect(add_evidence_link.getText()).toBe('Add new evidence');
         expect(add_evidence_link.getAttribute('href'))
           .toMatch(/http:\/\/localhost:8000\/index.html#!\/showCompany\/\d*\/addEvidenceRecord/);
       });
@@ -100,6 +100,41 @@ describe('my app', function() {
 
         var title = element.all(by.css('h1')).first().getText();
         expect(title).toBe('Add new evidence about Test Company');
+
+        var title = element(by.id('evidence_record_title'));
+        var reference_url = element(by.id('evidence_record_reference_url'));
+        var reference_title = element(by.id('evidence_record_reference_title'));
+        var description = element(by.id('evidence_record_description'));
+        var score = element(by.id('evidence_record_score'));
+        var submit_button = element(by.id('submit_button'));
+
+        title.sendKeys('Test Title');
+        reference_url.sendKeys('https://www.google.com/search?q=test');
+        reference_title.sendKeys('Test Reference Title');
+        description.sendKeys('Test Description');
+        score.sendKeys('7.5');
+
+        expect(title.getAttribute('value')).toBe('Test Title');
+        expect(reference_url.getAttribute('value')).toBe('https://www.google.com/search?q=test');
+        expect(reference_title.getAttribute('value')).toBe('Test Reference Title');
+        expect(description.getAttribute('value')).toBe('Test Description');
+        expect(score.getAttribute('value')).toBe('7.5');
+
+        submit_button.click();
+
+        var title = element.all(by.css('h1')).first().getText();
+        var evidence_record_title = element.all(by.css('h4.card-title')).first().getText();
+        var evidence_record_description = element.all(by.css('p.evidence-record-description')).first().getText();
+        var evidence_record_reference_title = element.all(by.css('p.evidence-record-reference')).first().getText();
+        var evidence_record_reference_url = element.all(by.css('p.evidence-record-reference > a')).first().getAttribute('href');
+        var evidence_record_score = element.all(by.css('p.evidence-record-score')).first().getText();
+
+        expect(title).toBe('Test Company');
+        expect(evidence_record_title).toBe('Test Title');
+        expect(evidence_record_description).toBe('Test Description');
+        expect(evidence_record_reference_title).toBe('Reference: Test Reference Title');
+        expect(evidence_record_reference_url).toBe('https://www.google.com/search?q=test');
+        expect(evidence_record_score).toBe('Score: 7.5');
       });
     });
   });
