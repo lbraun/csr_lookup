@@ -39,9 +39,8 @@ var PGDATABASE = process.env.CSR_LOOKUP_POSTGRES_DATABASE || 'csr_lookup'
 var PGUSER = process.env.CSR_LOOKUP_POSTGRES_USER || 'postgres'
 var PGPASSWORD = process.env.CSR_LOOKUP_POSTGRES_PASSWORD || 123456
 
-if (false) {
-  console.log("Error: arguments must not be blank")
-  console.log("Usage: node_app.js <db_username> <company_name>")
+if (PGDATABASE == null) {
+  console.log("Error: database must be configured")
 } else {
   var config = {
     user: PGUSER,            // name of the user account
@@ -118,9 +117,24 @@ if (false) {
 
     // * Add an evidence record for a company
     app.post('/companies/:id/evidence_records', function (req, res) {
-      var id = req.params.id;
-      var title = req.body.title;
-      var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\') RETURNING id', title)
+      var companyId = req.params.id;
+      var query = `
+        INSERT INTO evidence_records (
+          fk_company_id,
+          title,
+          reference_url,
+          reference_title,
+          description,
+          score
+        ) VALUES (
+          ${companyId},
+          '${req.body.title}',
+          '${req.body.reference_url}',
+          '${req.body.reference_title}',
+          '${req.body.description}',
+          ${req.body.score}
+        ) RETURNING id
+      `;
       queryDatabase(query, res, true);
     });
 

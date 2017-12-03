@@ -18,7 +18,7 @@
         <input class="form-control" id="company_industry" ng-model="company.industry" placeholder="Industry" required>
       </div>
 
-      <button type="submit" class="btn btn-outline-primary"
+      <button type="submit" class="btn btn-outline-primary" id="submit_button"
         ng-click="on_add_company_button_click()"
         ng-keyup="$event.keyCode == 13 ? on_add_company_button_click() : null">Add it!</button>
     </form>

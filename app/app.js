@@ -6,6 +6,7 @@ angular.module('csrLookupApp', [
   'csrLookupApp.mainPage',
   'csrLookupApp.addCompany',
   'csrLookupApp.showCompany',
+  'csrLookupApp.addEvidenceRecord',
   'csrLookupApp.advancedSearch',
   'csrLookupApp.searchResults',
   'csrLookupApp.version'
