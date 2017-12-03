@@ -34,17 +34,10 @@ app.use(bodyParser.json());
 var pg = require('pg')
 var format = require('pg-format')
 
-var PGDATABASE = 'csr_lookup'
-
-// Command line inputs
-// var PGUSER = process.argv[2]
-// var PGPASSWORD = process.argv[3] == '%' ? null : process.argv[3];
-// var companyName = process.argv[4]
-
-// Direct inputs
-var PGUSER = 'postgres'
-var PGPASSWORD = 123456
-var companyName = 'ESRI'
+// Database configuration
+var PGDATABASE = process.env.CSR_LOOKUP_POSTGRES_DATABASE || 'csr_lookup'
+var PGUSER = process.env.CSR_LOOKUP_POSTGRES_USER || 'postgres'
+var PGPASSWORD = process.env.CSR_LOOKUP_POSTGRES_PASSWORD || 123456
 
 if (false) {
   console.log("Error: arguments must not be blank")
@@ -130,6 +123,7 @@ if (false) {
       var query = format('INSERT INTO evidence_records (fk_company_id, title) VALUES (\'%s\') RETURNING id', title)
       queryDatabase(query, res, true);
     });
+
     // * Rate company
     app.post('/companies/:id/rate', function (req, res) {
       var companyId = req.params.id;
@@ -159,6 +153,7 @@ if (false) {
         });
       }
     });
+
     function getCompanyInformation(id, callback) {
       var query = format("SELECT * FROM vw_companies_information WHERE id = " + id);
       myClient.query(query, function (err, result) {
@@ -166,6 +161,7 @@ if (false) {
           callback(result.rows[0]);
       });
     }
+
     // * Return all evidence_records for a given company
     app.get('/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
@@ -198,6 +194,12 @@ if (false) {
       console.log('Listening on 3000...')
     })
 
+
+    // Command line inputs
+    // var companyName = process.argv[4]
+
+    // Direct inputs
+    var companyName = 'ESRI'
 
     // Small test query
     myClient = client
