@@ -1,4 +1,4 @@
--- psql csr_lookup < database/schema.down.sql
+-- psql csr_lookup < project_files/database/schema.down.sql
 
 DROP VIEW IF EXISTS public.vw_companies_information;
 DROP TABLE IF EXISTS rating_records;

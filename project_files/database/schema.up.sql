@@ -1,4 +1,4 @@
--- psql csr_lookup < database/schema.up.sql
+-- psql csr_lookup < project_files/database/schema.up.sql
 
 CREATE TABLE users (
     "id" SERIAL PRIMARY KEY,
