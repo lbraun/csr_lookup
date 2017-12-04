@@ -38,6 +38,8 @@ var format = require('pg-format')
 var PGDATABASE = process.env.CSR_LOOKUP_POSTGRES_DATABASE || 'csr_lookup'
 var PGUSER = process.env.CSR_LOOKUP_POSTGRES_USER || 'postgres'
 var PGPASSWORD = process.env.CSR_LOOKUP_POSTGRES_PASSWORD || 123456
+var PGHOST = process.env.CSR_LOOKUP_POSTGRES_HOST || null
+var PGPORT = process.env.CSR_LOOKUP_POSTGRES_PORT || null
 
 if (PGDATABASE == null) {
   console.log("Error: database must be configured")
@@ -46,6 +48,8 @@ if (PGDATABASE == null) {
     user: PGUSER,            // name of the user account
     password: PGPASSWORD,    // password of the user account
     database: PGDATABASE,    // name of the database
+    host: PGHOST,            // host of the database
+    port: PGPORT,            // port of the database
     max: 10,                 // max number of clients in the pool
     idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
   }
@@ -217,8 +221,8 @@ if (PGDATABASE == null) {
 
 
     // Start listening
-    app.listen(3000, function () {
-      console.log('Listening on 3000...')
+    app.listen(process.env.PORT || 3000, function () {
+      console.log(`Listening on ${process.env.PORT || 3000}...`)
     })
 
 
