@@ -24,6 +24,10 @@
   padding-right: 0.3em;
 }
 
+.ratings-container {
+  text-align: center;
+}
+
 .star-ratings-sprite {
   background: url(resources/images/star-rating-sprite.png) repeat-x;
   font-size: 0;
@@ -83,8 +87,21 @@ table.infobox.vcard {
   word-wrap: break-word;
 }
 .results-container{
-  float:left;width:50%
+  float:left;
+  width:50%;
 }
 .results-map{
-  float:right;width:50%;height:500px
+  float:right;width:50%;
+  height:500px;
+}
+
+@media screen and (max-width: 1128px) {
+  .results-map {
+    display: none;
+  }
+
+  .results-container{
+    float:left;
+    width:100%;
+  }
 }

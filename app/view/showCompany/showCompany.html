@@ -1,7 +1,27 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-4">
     <h1>{{company.name}}</h1>
     <p id="industry_text">Industry: {{company.industry}}</p>
+  </div>
+
+  <div class='ratings-container col-2' ng-show=company.user_rated >
+    <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+      <span style="width:{{company.rating / 5 * 100}}%" class="star-ratings-sprite-rating">
+      </span>
+    </div>
+    {{company.rating | number:1}}
+  </div>
+  <div class='ratings-container col-2' ng-hide=company.user_rated >
+    <div class="star-ratings-sprite" ng-mousemove='rating_mousemove($event)' ng-mouseleave = 'rating_mouseleave($event)' ng-click = 'rating_click($event)'>
+      <span style="width:0%" class="star-ratings-sprite-rating">
+      </span>
+    </div>
+    <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
+  </div>
+
+  <div class='ratings-container col-2'>
+    <strong>Responsibilty score:</strong>
+    {{company.responsibility_score | number:1}}
   </div>
 </div>
 
@@ -10,8 +30,8 @@
 
     <h4>Evidence of Social Responsibility</h4>
 
-    <div ng-repeat='evidence_record in evidence_records track by evidence_record.id'>
-      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light my-4">
+    <div ng-repeat="evidence_record in evidence_records track by evidence_record.id">
+      <div id="evidence-record-{{evidence_record.id}}" class="card bg-light mb-4">
         <div class="card-body">
           <h4 class="card-title">{{evidence_record.title}}</h4>
           <p class="card-text evidence-record-description">
@@ -42,14 +62,9 @@
 
     <div class="card bg-light">
       <div class="card-body">
-        <h4 class="card-title">News pulled from google news</h4>
         <p class="card-text">
-          TODO: Fill with news pulled from google news
+          <a href="https://news.google.com/news/search/section/q/{{company.name}}" target="_blank">{{company.name}} on Google News</a>
         </p>
-
-        <div id="body">
-          <div id="feedControl">Loading...</div>
-        </div>
       </div>
     </div>
   </div>
@@ -60,7 +75,7 @@
         <p class="card-text wikipedia-box" id="wikipediaBox">
           Loading Wikipedia box ...
         </p>
-        <a id="wikipedia_link" href='https://en.wikipedia.org/wiki/{{company.wikipedia_name}}' target='_blank'>
+        <a id="wikipedia_link" href="https://en.wikipedia.org/wiki/{{company.wikipedia_name}}" target="_blank">
           {{company.name}}
         </a>
       </div>
