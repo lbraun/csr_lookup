@@ -99,13 +99,57 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
                 var lat = company.coordinates.lat();
                 var lng = company.coordinates.lng();
                 var position = {lat: lat, lng: lng};
+                company.contentSring= `<div class="row" >
+                  <div class="col-4">
+                    <h3>`+company.name+`</h3>
+                    <p id="industry_text">Industry: `+company.industry+`</p>
+                  </div>`
+                  if(company.user_rated)
+                    company.contentSring+=
+                    `<div class='ratings-container col-4'  >
+                      <div class="star-ratings-sprite">
+                        <span style="width:`+company.rating/5*100+`%" class="star-ratings-sprite-rating">
+                        </span>
+                      </div>
+                      +`+Math.round(company.rating*2)/2+`
+                    </div>
+                    `;
+                  else
+                  company.contentSring+=
+                  `<div class='ratings-container col-4' >
+                    <div class="star-ratings-sprite">
+                      <span style="width:0%" class="star-ratings-sprite-rating">
+                      </span>
+                    </div>
+                    <span style="color:lightgray" title="Please rate the company first!">Rating hidden</span>
+                  </div>
+                  `;
+                  var resp_score = company.responsibility_score == null? '':Math.round(company.responsibility_score);
+                  company.contentSring+=
+                  `<div class='ratings-container col-2'>
+                    <strong>Responsibilty score:</strong>
+                    `+resp_score+`
+                  </div>
+                </div>`;
 
-                var marker = new google.maps.Marker({
+                company.marker = new google.maps.Marker({
                   position: position,
                   title: company.name,
                   map: $scope.map
                 });
-                bounds.extend(marker.position);
+                company.infowindow = new google.maps.InfoWindow({
+                    content: company.contentString
+                });
+                google.maps.event.addListener(company.marker,'click', (function(marker,content,infowindow){
+                  return function() {
+                      infowindow.setContent(content);
+                      infowindow.open($scope.map,marker);
+                  };
+                })(company.marker,company.contentSring,company.infowindow));
+                // company.marker.addListener('click', function() {
+                //   company.infowindow.open($scope.map, company.marker);
+                // });
+                bounds.extend(company.marker.position);
               }
               $scope.map.fitBounds(bounds);
               }
