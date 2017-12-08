@@ -13,7 +13,7 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
   $scope.on_add_company_button_click = function() {
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/api/companies',
+      url: 'http://csr-lookup.herokuapp.com/api/companies',
       headers: {
         'Content-Type': 'application/json'
       },

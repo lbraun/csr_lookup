@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/app'));
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   // Headers you wish to allow in requests
   res.header("Access-Control-Allow-Headers", "Content-Type");
   next();
