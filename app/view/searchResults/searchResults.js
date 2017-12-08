@@ -9,7 +9,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
   });
 }])
 
-.controller('SearchResultsCtrl', ['$scope','$http', '$location', function($scope, $http, $location) {
+.controller('SearchResultsCtrl', ['$scope','$http', '$location', '__env', function($scope, $http, $location, __env) {
   $scope.initMap = function(){
     $scope.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4
@@ -81,7 +81,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     if(searchWord) {
       $http({
         method: 'GET',
-        url: 'http://csr-lookup.herokuapp.com/api/companies/users/'+ $scope.userId +'/search/' + searchWord
+        url: __env.apiUrl + '/api/companies/users/'+ $scope.userId +'/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
         if($scope.searchResults && $scope.searchResults.length > 0)
@@ -187,7 +187,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     var companyId = company.id;
     $http({
       method: 'POST',
-      url: 'http://csr-lookup.herokuapp.com/api/companies/' + companyId + '/rate/',
+      url: __env.apiUrl + '/api/companies/' + companyId + '/rate/',
       headers: {
         'Content-Type': 'application/json'
       },

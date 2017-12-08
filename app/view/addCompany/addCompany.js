@@ -9,11 +9,11 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
   });
 }])
 
-.controller('AddCompanyCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
-  $scope.on_add_company_button_click = function() {
+.controller('AddCompanyCtrl', ['$http', '$scope', '$location', '__env', function($http, $scope, $location, __env) {
+  $scope.on_add_company_button_click = function(__env) {
     $http({
       method: 'POST',
-      url: 'http://csr-lookup.herokuapp.com/api/companies',
+      url: __env.apiUrl + '/api/companies',
       headers: {
         'Content-Type': 'application/json'
       },

@@ -9,12 +9,12 @@ angular.module('csrLookupApp.addEvidenceRecord', ['ngRoute'])
   });
 }])
 
-.controller('AddEvidenceRecordCtrl', ['$http', '$scope', '$location', '$routeParams', function($http, $scope, $location, $routeParams) {
+.controller('AddEvidenceRecordCtrl', ['$http', '$scope', '$location', '$routeParams', '__env', function($http, $scope, $location, $routeParams, __env) {
   $scope.companyId = $routeParams.companyId;
 
   $http({
     method: 'GET',
-    url: 'http://csr-lookup.herokuapp.com/api/companies/' + $routeParams.companyId
+    url: __env.apiUrl + '/api/companies/' + $routeParams.companyId
   }).then(function successCallback(response) {
     $scope.company = response.data;
   }, function errorCallback(response) {
@@ -24,7 +24,7 @@ angular.module('csrLookupApp.addEvidenceRecord', ['ngRoute'])
   $scope.on_add_evidence_record_button_click = function() {
     $http({
       method: 'POST',
-      url: 'http://csr-lookup.herokuapp.com/api/companies/' + this.companyId + '/evidence_records',
+      url: __env.apiUrl + '/api/companies/' + this.companyId + '/evidence_records',
       headers: {
         'Content-Type': 'application/json'
       },

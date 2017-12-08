@@ -9,14 +9,14 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
   });
 }])
 
-.controller('ShowCompanyCtrl', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+.controller('ShowCompanyCtrl', ['$http', '$scope', '$routeParams', '__env', function($http, $scope, $routeParams, __env) {
   $scope.id = $routeParams.id;
 
   $scope.userId = 1;
 
   $http({
     method: 'GET',
-    url: 'http://csr-lookup.herokuapp.com/api/companies/' + $routeParams.id
+    url: __env.apiUrl + '/api/companies/' + $routeParams.id
   }).then(function successCallback(response) {
     $scope.company = response.data;
     fillWikipediaBox(response.data.wikipedia_name);
@@ -26,7 +26,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://csr-lookup.herokuapp.com/api/rating_records/' + $scope.userId + '/' + $routeParams.id
+    url: __env.apiUrl + '/api/rating_records/' + $scope.userId + '/' + $routeParams.id
   }).then(function successCallback(response) {
     $scope.company.user_rated = response.data != '';
   }, function errorCallback(response) {
@@ -35,7 +35,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://csr-lookup.herokuapp.com/api/companies/' + $routeParams.id + '/evidence_records'
+    url: __env.apiUrl + '/api/companies/' + $routeParams.id + '/evidence_records'
   }).then(function successCallback(response) {
     $scope.evidence_records = response.data;
   }, function errorCallback(response) {
@@ -95,7 +95,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
      var companyId = company.id;
      $http({
        method: 'POST',
-       url: 'http://csr-lookup.herokuapp.com/api/companies/' + companyId + '/rate/',
+       url: __env.apiUrl + '/api/companies/' + companyId + '/rate/',
        headers: {
          'Content-Type': 'application/json'
        },
