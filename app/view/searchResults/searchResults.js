@@ -81,7 +81,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     if(searchWord) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/companies/users/'+ $scope.userId +'/search/' + searchWord
+        url: 'http://localhost:8080/api/companies/users/'+ $scope.userId +'/search/' + searchWord
       }).then(function successCallback(response) {
         $scope.searchResults = response.data;
         if($scope.searchResults && $scope.searchResults.length > 0)
@@ -187,7 +187,7 @@ angular.module('csrLookupApp.searchResults', ['ngRoute'])
     var companyId = company.id;
     $http({
       method: 'POST',
-      url: 'http://localhost:3000/companies/' + companyId + '/rate/',
+      url: 'http://localhost:8080/api/companies/' + companyId + '/rate/',
       headers: {
         'Content-Type': 'application/json'
       },

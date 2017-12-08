@@ -16,6 +16,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const app = express()
 
+app.use(express.static(__dirname + '/app'));
+
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
@@ -25,6 +27,7 @@ app.use(function (req, res, next) {
 
 
 });
+
 // Handles post requests
 app.use(bodyParser.json());
 
@@ -61,13 +64,13 @@ if (PGDATABASE == null) {
     if (err) console.log(err)
 
     // Define our main route, HTTP "GET /" which will print "hello"
-    app.get('/', function (req, res) {
+    app.get('/api/', function (req, res) {
       res.send('Hello world!');
     });
 
     // Company route handler
     // * Return a subset of companies
-    app.get('/companies/users/:userId/search/:companyName', function (req, res) {
+    app.get('/api/companies/users/:userId/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
       var userId = req.params.userId;
       var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
@@ -104,14 +107,14 @@ if (PGDATABASE == null) {
     });
 
     // * Return a single company
-    app.get('/companies/:id', function (req, res) {
+    app.get('/api/companies/:id', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM vw_companies_information WHERE id = %L', id)
       queryDatabase(query, res, true);
     });
 
     // * Return a single rating record
-    app.get('/rating_records/:userId/:companyId', function (req, res) {
+    app.get('/api/rating_records/:userId/:companyId', function (req, res) {
       var userId = req.params.userId;
       var companyId = req.params.companyId;
       var query = `SELECT * FROM rating_records WHERE fk_created_by = ${userId} AND fk_company_id = ${companyId}`
@@ -119,7 +122,7 @@ if (PGDATABASE == null) {
     });
 
     // * Add a company
-    app.post('/companies', function (req, res) {
+    app.post('/api/companies', function (req, res) {
       var name = req.body.name;
       var wikipedia_name = req.body.wikipedia_name;
       var industry = req.body.industry;
@@ -128,7 +131,7 @@ if (PGDATABASE == null) {
     });
 
     // * Add an evidence record for a company
-    app.post('/companies/:id/evidence_records', function (req, res) {
+    app.post('/api/companies/:id/evidence_records', function (req, res) {
       var companyId = req.params.id;
       var query = `
         INSERT INTO evidence_records (
@@ -151,7 +154,7 @@ if (PGDATABASE == null) {
     });
 
     // * Rate company
-    app.post('/companies/:id/rate', function (req, res) {
+    app.post('/api/companies/:id/rate', function (req, res) {
       var companyId = req.params.id;
       var userId = req.body.userId;
       var rated = req.body.rated;
@@ -189,7 +192,7 @@ if (PGDATABASE == null) {
     }
 
     // * Return all evidence_records for a given company
-    app.get('/companies/:id/evidence_records', function (req, res) {
+    app.get('/api/companies/:id/evidence_records', function (req, res) {
       var id = req.params.id;
       var query = format('SELECT * FROM evidence_records WHERE fk_company_id = %L', id)
       queryDatabase(query, res);
@@ -221,9 +224,10 @@ if (PGDATABASE == null) {
 
 
     // Start listening
-    app.listen(process.env.PORT || 3000, function () {
-      console.log(`Listening on ${process.env.PORT || 3000}...`)
-    })
+    var server = app.listen(process.env.PORT || 8080, function () {
+      var port = server.address().port;
+      console.log(`Listening on ${port}...`)
+    });
 
 
     // Command line inputs

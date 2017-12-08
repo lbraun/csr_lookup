@@ -14,7 +14,7 @@ angular.module('csrLookupApp.addEvidenceRecord', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://localhost:3000/companies/' + $routeParams.companyId
+    url: 'http://localhost:8080/api/companies/' + $routeParams.companyId
   }).then(function successCallback(response) {
     $scope.company = response.data;
   }, function errorCallback(response) {
@@ -24,7 +24,7 @@ angular.module('csrLookupApp.addEvidenceRecord', ['ngRoute'])
   $scope.on_add_evidence_record_button_click = function() {
     $http({
       method: 'POST',
-      url: 'http://localhost:3000/companies/' + this.companyId + '/evidence_records',
+      url: 'http://localhost:8080/api/companies/' + this.companyId + '/evidence_records',
       headers: {
         'Content-Type': 'application/json'
       },

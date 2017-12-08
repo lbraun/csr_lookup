@@ -16,7 +16,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://localhost:3000/companies/' + $routeParams.id
+    url: 'http://localhost:8080/api/companies/' + $routeParams.id
   }).then(function successCallback(response) {
     $scope.company = response.data;
     fillWikipediaBox(response.data.wikipedia_name);
@@ -26,7 +26,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://localhost:3000/rating_records/' + $scope.userId + '/' + $routeParams.id
+    url: 'http://localhost:8080/api/rating_records/' + $scope.userId + '/' + $routeParams.id
   }).then(function successCallback(response) {
     $scope.company.user_rated = response.data != '';
   }, function errorCallback(response) {
@@ -35,7 +35,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
 
   $http({
     method: 'GET',
-    url: 'http://localhost:3000/companies/' + $routeParams.id + '/evidence_records'
+    url: 'http://localhost:8080/api/companies/' + $routeParams.id + '/evidence_records'
   }).then(function successCallback(response) {
     $scope.evidence_records = response.data;
   }, function errorCallback(response) {
@@ -95,7 +95,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
      var companyId = company.id;
      $http({
        method: 'POST',
-       url: 'http://localhost:3000/companies/' + companyId + '/rate/',
+       url: 'http://localhost:8080/api/companies/' + companyId + '/rate/',
        headers: {
          'Content-Type': 'application/json'
        },
