@@ -5,6 +5,7 @@ Next install the required node packages:
 $ npm install pg
 $ npm install pg-format
 $ npm install express --save
+$ npm install body-parser
 
 Once dependencies are installed, use the following command to run:
 $ node node_app.js <db_username> <db_password> <company_name>
