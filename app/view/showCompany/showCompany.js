@@ -47,7 +47,7 @@ angular.module('csrLookupApp.showCompany', ['ngRoute'])
        var wikiData;
         $.ajax({
             type: "GET",
-            url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&callback=?&page="+companyWikipediaName,
+            url: "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&callback=?&page="+companyWikipediaName,
             contentType: "application/json; charset=utf-8",
             async: false,
             dataType: "json",
