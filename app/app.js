@@ -18,7 +18,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 }]);
 
 var development_env = {
-  apiUrl: 'http://localhost:8080',
+  apiUrl: 'https://localhost:8080',
   baseUrl: '/'
 };
 
@@ -28,5 +28,5 @@ var production_env = {
 };
 
 // Register environment in AngularJS as constant
-// ngModule.constant('__env', production_env);
-ngModule.constant('__env', development_env);
+ngModule.constant('__env', production_env);
+// ngModule.constant('__env', development_env);
