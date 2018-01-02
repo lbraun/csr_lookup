@@ -66,7 +66,7 @@ if (PGDATABASE == null) {
     app.get('/companies/users/:userId/search/:companyName', function (req, res) {
       var companyName = req.params.companyName;
       var userId = req.params.userId;
-      var query = format("SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'")
+      var query = "SELECT * FROM vw_companies_information WHERE name like '%" + companyName + "%'"
       console.log("\n" + query);
       console.log("\nuser:" + userId);
 
