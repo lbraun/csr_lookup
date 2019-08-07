@@ -9,11 +9,13 @@ angular.module('csrLookupApp.addCompany', ['ngRoute'])
   });
 }])
 
-.controller('AddCompanyCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
+.controller('AddCompanyCtrl', ['$http', '$scope', '$location', '__env', function($http, $scope, $location, __env) {
+  $scope.env = __env;
+
   $scope.on_add_company_button_click = function() {
     $http({
       method: 'POST',
-      url: 'http://localhost:3000/companies',
+      url: $scope.env.apiUrl + '/api/companies',
       headers: {
         'Content-Type': 'application/json'
       },

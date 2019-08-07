@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('csrLookupApp', [
+var ngModule = angular.module('csrLookupApp', [
   'ngRoute',
   'csrLookupApp.mainPage',
   'csrLookupApp.addCompany',
@@ -16,3 +16,17 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider.otherwise({redirectTo: '/mainPage'});
 }]);
+
+var development_env = {
+  apiUrl: 'https://localhost:8080',
+  baseUrl: '/'
+};
+
+var production_env = {
+  apiUrl: 'https://csr-lookup.herokuapp.com',
+  baseUrl: '/'
+};
+
+// Register environment in AngularJS as constant
+ngModule.constant('__env', production_env);
+// ngModule.constant('__env', development_env);
